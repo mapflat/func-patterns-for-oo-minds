@@ -46,7 +46,7 @@ def slide_index():
 
 
 def git_clean():
-    run_cmd("git clean --force --quiet -x")
+    run_cmd("git clean --force --quiet -x -e .idea -e '*.iml'")
 
 
 def switch_to_slide(name):

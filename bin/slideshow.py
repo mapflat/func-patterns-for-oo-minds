@@ -23,6 +23,9 @@ def run_cmd(cmd):
     print("> {}".format(cmd))
     os.system(cmd)
 
+def cmd_out(cmd):
+    return subprocess.check_output(cmd).decode()
+
 
 def start():
     run_cmd(
@@ -30,8 +33,8 @@ def start():
 
 
 def current_branch():
-    lines = subprocess.check_output(["git", "status", "--short", "--branch", "--porcelain"]).splitlines()
-    return str(lines[0]).split()[1].split(sep="...")[0]
+    lines = cmd_out(["git", "status", "--short", "--branch", "--porcelain"]).splitlines()
+    return lines[0].split()[1].split(sep="...")[0]
 
 
 def current_slide():
@@ -64,7 +67,7 @@ def next_slide():
 
 
 def slide_branches():
-    return [b for b in subprocess.check_output(["git", "branch", "--list"]).split()
+    return [b for b in cmd_out(["git", "branch", "--list"]).split()
             if b.startswith(SLIDE_PREFIX)]
 
 

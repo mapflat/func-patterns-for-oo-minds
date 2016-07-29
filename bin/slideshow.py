@@ -77,14 +77,16 @@ def rebase():
 def main(argv):
     os.chdir(str(Path(argv[0]).parent.parent))
     parser = ArgumentParser(description="Slideshow script")
-    args = parser.parse_args(argv)
-    {'start': start,
-     'move': move,
-     'prev': prev_slide,
-     'next': next_slide,
-     'rebase': rebase,
-     }[args[0]](*args[1:])
+    args = parser.parse_args(argv[1:])
+    commands = {
+        'move': move,
+        'next': next_slide,
+        'prev': prev_slide,
+        'rebase': rebase,
+        'start': start,
+    }
+    return commands[args[0]](*args[1:])
 
 
 if __name__ == '__main__':
-    sys.exit(main(sys.argv))
+    sys.exit(main(sys.argv) or 0)

@@ -19,8 +19,13 @@ SLIDES = [
 SLIDE_PREFIX = 'slide-'
 
 
+def run_cmd(cmd):
+    print("> {}".format(cmd))
+    os.system(cmd)
+
+
 def start():
-    os.system(
+    run_cmd(
         "grip '--title=Functional patterns for object-oriented minds' --wide slides/slides.md 2>&1 > /tmp/grip.out")
 
 
@@ -37,9 +42,13 @@ def slide_index():
     return SLIDES.index(current_slide())
 
 
+def git_clean():
+    run_cmd("git clean --force --quiet -x")
+
+
 def switch_to_slide(name):
-    os.system("git clean --force --quiet -x")
-    os.system("git checkout {}{}".format(SLIDE_PREFIX, name))
+    git_clean()
+    run_cmd("git checkout {}{}".format(SLIDE_PREFIX, name))
 
 
 def move(count):
@@ -54,6 +63,17 @@ def next_slide():
     move(1)
 
 
+def slide_branches():
+    return [b for b in subprocess.check_output(["git", "branch", "--list"]).split()
+            if b.startswith(SLIDE_PREFIX)]
+
+
+def rebase():
+    git_clean()
+    for slide in slide_branches():
+        run_cmd("git rebase {}".format(slide))
+
+
 def main(argv):
     os.chdir(str(Path(argv[0]).parent.parent))
     parser = ArgumentParser(description="Slideshow script")
@@ -61,7 +81,9 @@ def main(argv):
     {'start': start,
      'move': move,
      'prev': prev_slide,
-     'next': next_slide}[args[0]](*args[1:])
+     'next': next_slide,
+     'rebase': rebase,
+     }[args[0]](*args[1:])
 
 
 if __name__ == '__main__':

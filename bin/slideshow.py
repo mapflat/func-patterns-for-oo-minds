@@ -77,6 +77,7 @@ def rebase():
 def main(argv):
     os.chdir(str(Path(argv[0]).parent.parent))
     parser = ArgumentParser(description="Slideshow script")
+    parser.add_argument('operations', nargs='+', help="Operations to perform")
     args = parser.parse_args(argv[1:])
     commands = {
         'move': move,
@@ -85,7 +86,7 @@ def main(argv):
         'rebase': rebase,
         'start': start,
     }
-    return commands[args[0]](*args[1:])
+    return commands[args.operations[0]](*args.operations[1:])
 
 
 if __name__ == '__main__':

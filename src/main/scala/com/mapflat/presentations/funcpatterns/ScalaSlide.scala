@@ -2,4 +2,6 @@ package com.mapflat.presentations.funcpatterns
 
 import ScalaDeps._
 
-class ScalaSlide {}
+class ScalaSlide {
+  // Code will be shown here.
+}

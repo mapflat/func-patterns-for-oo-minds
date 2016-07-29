@@ -1,10 +1,3 @@
-# Speakers
+# Functional patterns for object-oriented minds
 
-## Rouzbeh Delavari
-
-Infrastructure engineer @ Spotify
-
-## Lars Albertsson
-
-Independent Data Engineering Consultant (Mapflat)
-Currently mostly @ Spotify
+Slide contents here

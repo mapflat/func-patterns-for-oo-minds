@@ -76,7 +76,7 @@ def rebase():
     current = current_branch()
     for slide in slide_branches():
         run_cmd("git checkout {}".format(slide))
-        run_cmd("git rebase".format(slide))
+        run_cmd("git rebase master".format(slide))
     run_cmd("git checkout {}".format(current))
 
 

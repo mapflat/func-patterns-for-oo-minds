@@ -1,3 +1,3 @@
-# Functional patterns for object-oriented minds
+# Functional programming is on the rise!
 
-Slide contents here
+![Book excerpt](/func_rising.png)

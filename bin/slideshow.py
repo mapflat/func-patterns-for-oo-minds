@@ -55,7 +55,13 @@ def switch_to_slide(name):
 
 
 def move(count):
-    switch_to_slide(SLIDES[(slide_index() + count) % len(SLIDES)])
+    if current_branch() == "master":
+        if count > 0:
+            switch_to_slide(SLIDES[count - 1])
+        else:
+            switch_to_slide(SLIDES[count])
+    else:
+        switch_to_slide(SLIDES[(slide_index() + count) % len(SLIDES)])
 
 
 def prev_slide():

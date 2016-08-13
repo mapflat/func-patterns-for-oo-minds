@@ -12,8 +12,25 @@ import subprocess
 SLIDES = [
     "title",
     "bio",
-    "intro",
-    # More here
+    "func-rising",
+    "func-rising-1982",
+    "oo-dominating",
+    "functional-gems",
+    # Rouz, add here
+
+    "error-mgmt",
+    "option",
+    "option-backfire",
+    "either",
+    "util-try",
+    "disjunctions",
+    "validations",
+    "json-path",
+    "argonaut",
+    "monocle",
+    "play-json",
+    "type-lenses",
+    "roundup",
 ]
 
 SLIDE_PREFIX = 'slide-'

@@ -8,4 +8,6 @@ object ScalaDeps {
   def riskyZEither() = ???
 
   def riskyEither() = ???
+
+  def riskyValidation() = ???
 }

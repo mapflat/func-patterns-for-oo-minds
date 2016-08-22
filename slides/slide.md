@@ -1,3 +1,8 @@
-# Functional patterns for object-oriented minds
+# Dual types - Option
 
-Slide contents here
+* Some[T] or None
+* Implements collection interfaces: Map, flatMap, foreach, etc.
+* More concise than if/else or try/catch.
+
+Nevertheless not suitable for error handling.
+

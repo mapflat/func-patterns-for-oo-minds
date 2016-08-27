@@ -24,6 +24,8 @@ class ScalaSlide {
 
     def sendPush(event: Event) = ???
 
+    def socialEvents(profile: Profile, lastActive: DateTime, friends: Set[Friend]): Set[Event] = ???
+
     def sendPushNotifications(): Unit = {
       val eventsOrError: Either[Throwable, Set[Event]] = for {
         userProfile <- services.retrieveUserProfile().right
@@ -37,8 +39,6 @@ class ScalaSlide {
         events => events.foreach(sendPush)
       )
     }
-
-    def socialEvents(profile: Profile, lastActive: DateTime, friends: Set[Friend]): Set[Event] = ???
   }
 
 }

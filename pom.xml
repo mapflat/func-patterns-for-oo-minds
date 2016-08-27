@@ -53,6 +53,11 @@
             <version>2.5.5</version>
         </dependency>
         <dependency>
+            <groupId>com.typesafe.scala-logging</groupId>
+            <artifactId>scala-logging_2.11</artifactId>
+            <version>3.4.0</version>
+        </dependency>
+        <dependency>
             <groupId>io.argonaut</groupId>
             <artifactId>argonaut_2.11</artifactId>
             <version>6.1</version>

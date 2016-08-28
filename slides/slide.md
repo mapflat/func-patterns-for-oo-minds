@@ -1,4 +1,4 @@
-# scala.Either
+# scalaz.Disjuntion aka \/
 
 * Asymmetric dual type - A object or B object
 * Right-biased

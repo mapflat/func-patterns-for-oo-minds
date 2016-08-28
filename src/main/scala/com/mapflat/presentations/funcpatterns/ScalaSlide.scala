@@ -1,26 +1,34 @@
 package com.mapflat.presentations.funcpatterns
 
+import com.mapflat.presentations.funcpatterns.ScalaDeps.legacyService
 import com.typesafe.scalalogging.StrictLogging
 import org.joda.time.DateTime
 
-import scalaz.{Disjunction, \/}
+import scala.util.{Failure, Success, Try}
 
 class Event
+
 class Friend
+
 class Profile
+
 class Log {
-  def determineLastActive(): \/[Throwable, DateTime] = ???
+  def determineLastActive(): Try[DateTime] =
+    Try {
+      legacyService.lastActive()  // Throws exceptions on error
+    }
 }
 
 trait ServiceProxy {
-  def retrieveSocialNetwork(): Disjunction[Throwable, Set[Friend]]
+  def retrieveSocialNetwork(): Try[Set[Friend]]
 
-  def retrieveActivityLog(): \/[Throwable, Log]
+  def retrieveActivityLog(): Try[Log]
 
-  def retrieveUserProfile(): Throwable \/ Profile
+  def retrieveUserProfile(): Try[Profile]
 }
 
 class ScalaSlide {
+
   // Error handling with Option. Swallows errors - bad idea.
 
   class User2(val services: ServiceProxy) extends StrictLogging {
@@ -28,22 +36,21 @@ class ScalaSlide {
     def sendPush(event: Event) = ???
 
     def socialEvents(profile: Profile, lastActive: DateTime, friends: Set[Friend]):
-      \/[Throwable, Set[Event]] = ???
+      Try[Set[Event]] = ???
 
     def sendPushNotifications(): Unit = {
-      val eventsOrError: Disjunction[Throwable, Set[Event]] = for {
+      val eventsOrError: Try[Set[Event]] = for {
         userProfile <- services.retrieveUserProfile()
         activityLog <- services.retrieveActivityLog()
         lastActive <- activityLog.determineLastActive()
         friends <- services.retrieveSocialNetwork()
         events <- socialEvents(userProfile, lastActive, friends)
-        numEvents = events.size  // This works.
+        numEvents = events.size // This works.
       } yield events
-      eventsOrError.fold(
-        error => logger.error("Failed to push: ", error),
-        events => events.foreach(sendPush)
-      )
+      eventsOrError match {
+        case Failure(error) => logger.error("Failed to push: ", error)
+        case Success(events) => events.foreach(sendPush)
+      }
     }
   }
-
 }

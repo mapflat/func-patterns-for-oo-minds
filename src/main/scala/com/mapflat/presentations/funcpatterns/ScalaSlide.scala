@@ -3,8 +3,7 @@ package com.mapflat.presentations.funcpatterns
 import com.typesafe.scalalogging.StrictLogging
 import org.joda.time.DateTime
 
-import scalaz._
-import Scalaz._
+import scalaz.{Disjunction, \/}
 
 class Event
 class Friend
@@ -14,11 +13,11 @@ class Log {
 }
 
 trait ServiceProxy {
-  def retrieveSocialNetwork(): Disjunction[Throwable, Set[Friend]] = ???
+  def retrieveSocialNetwork(): Disjunction[Throwable, Set[Friend]]
 
-  def retrieveActivityLog(): \/[Throwable, Log] = ???
+  def retrieveActivityLog(): \/[Throwable, Log]
 
-  def retrieveUserProfile(): Throwable \/ Profile = ???
+  def retrieveUserProfile(): Throwable \/ Profile
 }
 
 class ScalaSlide {
@@ -28,15 +27,17 @@ class ScalaSlide {
 
     def sendPush(event: Event) = ???
 
-    def socialEvents(profile: Profile, lastActive: DateTime, friends: Set[Friend]): Set[Event] = ???
+    def socialEvents(profile: Profile, lastActive: DateTime, friends: Set[Friend]):
+      \/[Throwable, Set[Event]] = ???
 
     def sendPushNotifications(): Unit = {
-      val eventsOrError: Disjunction[Throwable, Nothing] = for {
+      val eventsOrError: Disjunction[Throwable, Set[Event]] = for {
         userProfile <- services.retrieveUserProfile()
         activityLog <- services.retrieveActivityLog()
         lastActive <- activityLog.determineLastActive()
         friends <- services.retrieveSocialNetwork()
         events <- socialEvents(userProfile, lastActive, friends)
+        numEvents = events.size  // This works.
       } yield events
       eventsOrError.fold(
         error => logger.error("Failed to push: ", error),

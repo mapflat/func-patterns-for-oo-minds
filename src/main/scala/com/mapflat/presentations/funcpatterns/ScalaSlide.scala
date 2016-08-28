@@ -25,7 +25,8 @@ class ScalaSlide {
 
     def sendPush(event: Event) = ???
 
-    def socialEvents(profile: Profile, lastActive: DateTime, friends: Set[Friend]): Set[Event] = ???
+    def socialEvents(profile: Profile, lastActive: DateTime, friends: Set[Friend]):
+      Either[Throwable, Set[Event]] = ???
 
     def sendPushNotifications(): Unit = {
       val eventsOrError: Either[Throwable, Set[Event]] = for {
@@ -33,7 +34,7 @@ class ScalaSlide {
         activityLog <- services.retrieveActivityLog().right
         lastActive <- activityLog.determineLastActive().right
         friends <- services.retrieveSocialNetwork().right
-        events <- socialEvents(userProfile, lastActive, friends)
+        events <- socialEvents(userProfile, lastActive, friends).right
       } yield events
       eventsOrError.fold(
         error => logger.error("Failed to push: ", error),

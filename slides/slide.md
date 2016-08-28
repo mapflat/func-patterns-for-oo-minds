@@ -1,11 +1,16 @@
 # scala.Either
 
-* Symmetric dual type - A object or B object
-* Use left / right projection
-  - Option-like view
-  - Enables for comprehension
+* Asymmetric dual type - A object or B object
+* Right-biased
+  - Defaults to right projection
+  - For comprehension out of the box
+* Designed for error-handling
 
 Issues:
-* Not designed for error handling
-  - Conventions to remember
-  - Noise
+* Ascii-art warning
+  - Slippery slope to incomprehensible code
+  - "Concise" and "idiomatic" code -> steeper learning curve
+  - Risk of cultural split among engineers
+* Conventions to remember
+* Does not enforce distinct error types
+  - **Avoid \/[String, String]**

@@ -1,16 +1,9 @@
-# scala.Either
+# scala.util.Try
 
-* Asymmetric dual type - A object or B object
+* Asymmetric dual type - Throwable or object
 * Right-biased
-  - Defaults to right projection
+  - Defaults to Success side
   - For comprehension out of the box
 * Designed for error-handling
-
-Issues:
-* Ascii-art warning
-  - Slippery slope to incomprehensible code
-  - "Concise" and "idiomatic" code -> steeper learning curve
-  - Risk of cultural split among engineers
-* Conventions to remember
-* Does not enforce distinct error types
-  - **Avoid \/[String, String]**
+* Enforces Throwable for errors
+* Exception integration

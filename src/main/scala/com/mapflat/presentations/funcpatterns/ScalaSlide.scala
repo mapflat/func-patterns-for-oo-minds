@@ -28,9 +28,6 @@ trait ServiceProxy {
 }
 
 class ScalaSlide {
-
-  // Error handling with Option. Swallows errors - bad idea.
-
   class User2(val services: ServiceProxy) extends StrictLogging {
 
     def sendPush(event: Event) = ???

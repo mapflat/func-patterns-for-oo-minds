@@ -3,19 +3,22 @@ package com.mapflat.presentations.funcpatterns
 import com.typesafe.scalalogging.StrictLogging
 import org.joda.time.DateTime
 
+import scalaz._
+import Scalaz._
+
 class Event
 class Friend
 class Profile
 class Log {
-  def determineLastActive(): Either[Throwable, DateTime] = ???
+  def determineLastActive(): \/[Throwable, DateTime] = ???
 }
 
 trait ServiceProxy {
-  def retrieveSocialNetwork(): Either[Throwable, Set[Friend]] = ???
+  def retrieveSocialNetwork(): Disjunction[Throwable, Set[Friend]] = ???
 
-  def retrieveActivityLog(): Either[Throwable, Log] = ???
+  def retrieveActivityLog(): \/[Throwable, Log] = ???
 
-  def retrieveUserProfile(): Either[Throwable, Profile] = ???
+  def retrieveUserProfile(): Throwable \/ Profile = ???
 }
 
 class ScalaSlide {
@@ -28,11 +31,11 @@ class ScalaSlide {
     def socialEvents(profile: Profile, lastActive: DateTime, friends: Set[Friend]): Set[Event] = ???
 
     def sendPushNotifications(): Unit = {
-      val eventsOrError: Either[Throwable, Set[Event]] = for {
-        userProfile <- services.retrieveUserProfile().right
-        activityLog <- services.retrieveActivityLog().right
-        lastActive <- activityLog.determineLastActive().right
-        friends <- services.retrieveSocialNetwork().right
+      val eventsOrError: Disjunction[Throwable, Nothing] = for {
+        userProfile <- services.retrieveUserProfile()
+        activityLog <- services.retrieveActivityLog()
+        lastActive <- activityLog.determineLastActive()
+        friends <- services.retrieveSocialNetwork()
         events <- socialEvents(userProfile, lastActive, friends)
       } yield events
       eventsOrError.fold(

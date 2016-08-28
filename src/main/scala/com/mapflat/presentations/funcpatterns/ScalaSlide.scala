@@ -1,5 +1,6 @@
 package com.mapflat.presentations.funcpatterns
 
+import com.typesafe.scalalogging.StrictLogging
 import org.joda.time.DateTime
 
 class Event
@@ -35,7 +36,7 @@ class ScalaSlide {
         events <- socialEvents(userProfile, lastActive, friends)
       } yield events
       eventsOrError.fold(
-        error => logger.error("Failed to push: ". error),
+        error => logger.error("Failed to push: ", error),
         events => events.foreach(sendPush)
       )
     }

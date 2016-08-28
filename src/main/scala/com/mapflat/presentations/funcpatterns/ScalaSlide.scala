@@ -35,6 +35,7 @@ class ScalaSlide {
         lastActive <- activityLog.determineLastActive().right
         friends <- services.retrieveSocialNetwork().right
         events <- socialEvents(userProfile, lastActive, friends).right
+        // numEvents = events.size  (compile error)
       } yield events
       eventsOrError.fold(
         error => logger.error("Failed to push: ", error),

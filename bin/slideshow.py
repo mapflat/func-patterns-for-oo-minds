@@ -62,12 +62,13 @@ def slide_index():
     return SLIDES.index(current_slide())
 
 
-def git_clean():
+def clean_workspace():
+    run_cmd("git checkout .")
     run_cmd("git clean --force --quiet -x -e .idea -e '*.iml'")
 
 
 def switch_to_slide(name):
-    git_clean()
+    clean_workspace()
     run_cmd("git checkout {}{}".format(SLIDE_PREFIX, name))
 
 
@@ -95,7 +96,7 @@ def slide_branches():
 
 
 def rebase():
-    git_clean()
+    clean_workspace()
     current = current_branch()
     for slide in slide_branches():
         run_cmd("git checkout {}".format(slide))

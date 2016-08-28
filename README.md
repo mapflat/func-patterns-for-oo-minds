@@ -21,7 +21,7 @@ src/main/scala/com/mapflat/funcpatterns/ScalaSlide.scala for displaying Scala co
 src/test/{java,scala}/com/mapdlat/funcpatterns/{Java,Scala}SlideTest.{java,scala}.
 
 In order to move forward, run the "bin/slideshow.py next". In order to back up, run "bin/slideshow.py prev". The
-slideshow.py script will clear out (stash?) any local changes you have made, and reset the working directory to the
+slideshow.py script will clear out any local changes you have made, and reset the working directory to the
 desired slide.
 
 

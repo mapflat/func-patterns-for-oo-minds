@@ -3,21 +3,21 @@ package com.mapflat.presentations.funcpatterns
 import com.typesafe.scalalogging.StrictLogging
 import org.joda.time.DateTime
 
-import scalaz.{Disjunction, \/}
+import scalaz.Validation
 
 class Event
 class Friend
 class Profile
 class Log {
-  def determineLastActive(): \/[Throwable, DateTime] = ???
+  def determineLastActive(): Validation[Throwable, DateTime] = ???
 }
 
 trait ServiceProxy {
-  def retrieveSocialNetwork(): Disjunction[Throwable, Set[Friend]]
+  def retrieveSocialNetwork(): Validation[Throwable, Set[Friend]]
 
-  def retrieveActivityLog(): \/[Throwable, Log]
+  def retrieveActivityLog(): Validation[Throwable, Log]
 
-  def retrieveUserProfile(): Throwable \/ Profile
+  def retrieveUserProfile(): Validation[Throwable, Profile]
 }
 
 class ScalaSlide {
@@ -26,10 +26,10 @@ class ScalaSlide {
     def sendPush(event: Event) = ???
 
     def socialEvents(profile: Profile, lastActive: DateTime, friends: Set[Friend]):
-      \/[Throwable, Set[Event]] = ???
+      Validation[Throwable, Set[Event]] = ???
 
     def sendPushNotifications(): Unit = {
-      val eventsOrError: Disjunction[Throwable, Set[Event]] = for {
+      val eventsOrError: Validation[Throwable, Set[Event]] = for {
         userProfile: Profile <- services.retrieveUserProfile()
         activityLog: Log <- services.retrieveActivityLog()
         lastActive: DateTime <- activityLog.determineLastActive()

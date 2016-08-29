@@ -25,6 +25,7 @@ SLIDES = [
     "disjunctions",
     "util-try",
     "validations",
+    "validations-nel",
     "json-path",
     "argonaut",
     "monocle",

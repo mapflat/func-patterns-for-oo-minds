@@ -25,12 +25,12 @@ class ScalaSlide {
     def sendPush(event: Event) = ???
 
     def sendPushNotifications(): Unit = {
-      val events = for {
-        userProfile <- services.retrieveUserProfile()
-        activityLog <- services.retrieveActivityLog()
-        lastActive <- activityLog.determineLastActive()
-        friends <- services.retrieveSocialNetwork()
-        events <- socialEvents(userProfile, lastActive, friends)
+      val events: Iterable[Event] = for {
+        userProfile: Profile <- services.retrieveUserProfile()
+        activityLog: Log <- services.retrieveActivityLog()
+        lastActive: DateTime <- activityLog.determineLastActive()
+        friends: Set[Friend] <- services.retrieveSocialNetwork()
+        events: Event <- socialEvents(userProfile, lastActive, friends)
       } yield events
       // If this does nothing, where did we fail?
       events.foreach(sendPush)

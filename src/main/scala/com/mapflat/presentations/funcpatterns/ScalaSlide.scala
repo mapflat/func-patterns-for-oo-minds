@@ -28,16 +28,16 @@ class ScalaSlide {
 
     def sendPushNotifications(): Unit = {
       val eventsOrError: Either[Throwable, Set[Event]] = for {
-        userProfile <- services.retrieveUserProfile().right
-        activityLog <- services.retrieveActivityLog().right
-        lastActive <- activityLog.determineLastActive().right
-        friends <- services.retrieveSocialNetwork().right
-        events <- socialEvents(userProfile, lastActive, friends).right
+        userProfile: Profile <- services.retrieveUserProfile().right
+        activityLog: Log <- services.retrieveActivityLog().right
+        lastActive: DateTime <- activityLog.determineLastActive().right
+        friends: Set[Friend] <- services.retrieveSocialNetwork().right
+        events: Set[Event] <- socialEvents(userProfile, lastActive, friends).right
         // numEvents = events.size  (compile error)
       } yield events
       eventsOrError.fold(
-        error => logger.error("Failed to push: ", error),
-        events => events.foreach(sendPush)
+        (error: Throwable) => logger.error("Failed to push: ", error),
+        (events: Set[Event]) => events.foreach(sendPush)
       )
     }
   }

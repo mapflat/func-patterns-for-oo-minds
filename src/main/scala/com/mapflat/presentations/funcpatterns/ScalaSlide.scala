@@ -37,16 +37,16 @@ class ScalaSlide {
 
     def sendPushNotifications(): Unit = {
       val eventsOrError: Try[Set[Event]] = for {
-        userProfile <- services.retrieveUserProfile()
-        activityLog <- services.retrieveActivityLog()
-        lastActive <- activityLog.determineLastActive()
-        friends <- services.retrieveSocialNetwork()
-        events <- socialEvents(userProfile, lastActive, friends)
+        userProfile: Profile <- services.retrieveUserProfile()
+        activityLog: Log <- services.retrieveActivityLog()
+        lastActive: DateTime <- activityLog.determineLastActive()
+        friends: Set[Friend] <- services.retrieveSocialNetwork()
+        events: Set[Event] <- socialEvents(userProfile, lastActive, friends)
         numEvents = events.size // This works.
       } yield events
       eventsOrError match {
-        case Failure(error) => logger.error("Failed to push: ", error)
-        case Success(events) => events.foreach(sendPush)
+        case Failure(error: Throwable) => logger.error("Failed to push: ", error)
+        case Success(events: Set[Event]) => events.foreach(sendPush)
       }
     }
   }

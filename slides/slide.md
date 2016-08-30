@@ -1,16 +1,14 @@
-# scalaz.Disjuntion aka \/
+# scalaz.ValidationNel
 
-* Asymmetric dual type - A object or B object
-* Right-biased
-  - Defaults to right projection
-  - For comprehension out of the box
-* Designed for error-handling
+* Asymmetric dual type - error or T
+* Eagerly evaluates all operations
+  - Combined with |@| operator (aka oink, tie fighter, bad piggy)
+  - Saves all errors in non-empty list (Nel)
+* Useful when reporting all errors is desired, e.g. user filling in form.
 
 Issues:
-* Ascii-art warning
-  - Slippery slope to incomprehensible code
-  - "Concise" and "idiomatic" code -> steeper learning curve
-  - Risk of cultural split among engineers
-* Conventions to remember
-* Does not enforce distinct error types
-  - **Avoid \/[String, String]**
+* Even more Ascii art
+  - Further down the incomprehensible slope
+  - Scalaz examples: `<<?:   +|+   \?/   <+>   <++>   <%=   :++>>   ?|?`
+* Steeper learning curve
+  - I lost patience on simple case

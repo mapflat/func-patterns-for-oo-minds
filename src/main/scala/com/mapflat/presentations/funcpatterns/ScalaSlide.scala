@@ -3,45 +3,55 @@ package com.mapflat.presentations.funcpatterns
 import com.typesafe.scalalogging.StrictLogging
 import org.joda.time.DateTime
 
-import scalaz.Validation
+import scalaz._
+import Scalaz._
+import Validation.FlatMap._
 
 class Event
 class Friend
 class Profile
 class Log {
-  def determineLastActive(): Validation[Throwable, DateTime] = ???
+  def determineLastActive(): ValidationNel[Throwable, DateTime] = ???
 }
 
 trait ServiceProxy {
-  def retrieveSocialNetwork(): Validation[Throwable, Set[Friend]]
+  def retrieveSocialNetwork(): ValidationNel[Throwable, Set[Friend]]
 
-  def retrieveActivityLog(): Validation[Throwable, Log]
+  def retrieveActivityLog(): ValidationNel[Throwable, Log]
 
-  def retrieveUserProfile(): Validation[Throwable, Profile]
+  def retrieveUserProfile(): ValidationNel[Throwable, Profile]
 }
 
 class ScalaSlide {
+
   class User2(val services: ServiceProxy) extends StrictLogging {
 
     def sendPush(event: Event) = ???
 
     def socialEvents(profile: Profile, lastActive: DateTime, friends: Set[Friend]):
-      Validation[Throwable, Set[Event]] = ???
+      ValidationNel[Throwable, Set[Event]] = ???
 
     def sendPushNotifications(): Unit = {
-      val eventsOrError: Validation[Throwable, Set[Event]] = for {
-        userProfile: Profile <- services.retrieveUserProfile()
-        activityLog: Log <- services.retrieveActivityLog()
-        lastActive: DateTime <- activityLog.determineLastActive()
-        friends: Set[Friend] <- services.retrieveSocialNetwork()
-        events: Set[Event] <- socialEvents(userProfile, lastActive, friends)
-        numEvents = events.size  // This works.
-      } yield events
+      // Validations turned out not to be as simple as in the demos.
+
+      // Wrong, we want it flat: ValidationNel[Throwable, Set[Event]]
+      val eventsOrError: Validation[NonEmptyList[Throwable], ValidationNel[Throwable, Set[Event]]] =
+        (services.retrieveUserProfile() |@|
+          services.retrieveActivityLog().flatMap(_.determineLastActive()) |@|
+          services.retrieveSocialNetwork()
+          ) apply socialEvents
+      // It should be ">=> socialEvents" or something along those lines
+
+      // And this should only be a single level of error handling.
       eventsOrError.fold(
-        (error: Throwable) => logger.error("Failed to push: ", error),
-        (events: Set[Event]) => events.foreach(sendPush)
-      )
-    }
+        (error: NonEmptyList[Throwable]) => logger.error("Failed to retrieve user information: ", error),
+        eventsOrError2 => eventsOrError2.fold(
+          (err: NonEmptyList[Throwable]) => logger.error("Failed to retrieve user social network: ", err),
+          (events: Set[Event]) => events.foreach(sendPush)
+        )
+    )
   }
+
+}
 
 }

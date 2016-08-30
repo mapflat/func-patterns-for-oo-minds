@@ -2,8 +2,10 @@ package com.mapflat.presentations.funcpatterns;
 
 import com.mapflat.presentations.funcpatterns.JavaDeps.*;
 
-public class JavaSlide {
-    int example(ExampleClassDep arg) {
-        return 1;
+import java.util.List;
+
+class JavaSlide {
+    List<String> authors(String json) {
+        return JsonPath.read(json, "$.store.book[*].author");
     }
 }

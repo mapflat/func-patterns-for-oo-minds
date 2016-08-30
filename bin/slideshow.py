@@ -29,8 +29,8 @@ SLIDES = [
     "lenses",
     "json-path",
     "argonaut",
-    "monocle",
     "play-json",
+    "monocle",
     "type-lenses",
     "roundup",
 ]

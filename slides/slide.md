@@ -1,3 +1,4 @@
-# Functional patterns for object-oriented minds
+# JSON path
 
-Slide contents here
+* String-based lens Java library for selecting JSON substructures.
+* Similar to `jq` command line tool.

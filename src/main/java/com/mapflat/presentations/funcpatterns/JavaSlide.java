@@ -4,6 +4,7 @@ import com.jayway.jsonpath.JsonPath;
 import com.mapflat.presentations.funcpatterns.JavaDeps.*;
 
 import java.util.List;
+import java.util.Map;
 
 class JavaSlide {
   List<String> authors(String json) {
@@ -11,11 +12,12 @@ class JavaSlide {
   }
 
   List<String> cheapBooks(String json) {
-    return JsonPath.read(json, "$.store.book[?(@.price < 10)]");
+    return JsonPath.read(json, "$.store.book[?(@.price < 10)].title");
   }
 
   int numBooks(String json) {
-    return JsonPath.read(json, "$..book.length()");
+    List<Map<String, Object>> books = JsonPath.read(json, "$..book[*]");
+    return books.size();
   }
 
 }

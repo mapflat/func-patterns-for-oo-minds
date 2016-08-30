@@ -2,7 +2,9 @@ package com.mapflat.presentations.funcpatterns;
 
 import org.junit.Test;
 
-import static junit.framework.TestCase.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItems;
 
 public class JavaSlideTest {
     String json = "{\n" +
@@ -46,6 +48,8 @@ public class JavaSlideTest {
     @Test
     public void exampleTest() {
         JavaSlide slide = new JavaSlide();
-        assertEquals(, slide.authors(json));
+        assertThat(slide.authors(json), hasItems("Nigel Rees", "Evelyn Waugh", "Herman Melville", "J. R. R. Tolkien"));
+        assertThat(slide.cheapBooks(json), hasItems("Sayings of the Century", "Moby Dick"));
+        assertThat(slide.numBooks(json), equalTo(4));
     }
 }

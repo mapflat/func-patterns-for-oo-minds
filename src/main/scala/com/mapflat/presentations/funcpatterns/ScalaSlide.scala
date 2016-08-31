@@ -1,8 +1,8 @@
 package com.mapflat.presentations.funcpatterns
 
 import monocle.Lens
-import monocle.macros.{GenLens, Lenses}
-import play.api.libs.json.{JsPath, Json, Reads}
+import monocle.macros.GenLens
+import play.api.libs.json.Json
 
 import scala.util.{Failure, Success, Try}
 

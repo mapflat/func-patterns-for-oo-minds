@@ -13,9 +13,9 @@ class ScalaSlide {
 
   val maybeEither: Either[Throwable, Int] = riskyEither()
 
-  val maybeScalazEither: \/[Throwable, Int] = riskyZEither()
+  val maybeDisjunction: \/[Throwable, Int] = riskyDisjunction()
 
-  val maybeScalazValidation: Validation[Throwable, Int] = riskyValidation()
+  val maybeValidation: Validation[Throwable, Int] = riskyValidation()
 
   val maybeTry: Try[Int] = riskyTry()
 

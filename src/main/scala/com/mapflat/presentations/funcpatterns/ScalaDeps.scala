@@ -5,7 +5,7 @@ object ScalaDeps {
 
   def riskyTry() = ???
 
-  def riskyZEither() = ???
+  def riskyDisjunction() = ???
 
   def riskyEither() = ???
 

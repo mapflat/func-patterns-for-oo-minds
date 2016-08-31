@@ -1,6 +1,6 @@
 package com.mapflat.presentations.funcpatterns
 
-import play.api.libs.json.{JsPath, Json}
+import play.api.libs.json.{JsPath, Json, Reads}
 
 import scala.util.{Success, Try}
 
@@ -9,9 +9,9 @@ class ScalaSlide {
   val emailLens = JsPath \ "employees" \ 0 \ "email"
   val noteLens = JsPath \ "employees" \ 0 \ "note"
 
-  def extractString(doc: String)(lens: JsPath): Try[Option[String]] = {
+  def extract[T](doc: String)(lens: JsPath)(implicit fromJson: Reads[T]): Try[Option[T]] = {
     Try {
-      Json.parse(doc).validate(lens.read[String]).asOpt
+      Json.parse(doc).validate(lens.read[T]).asOpt
     }
   }
 }

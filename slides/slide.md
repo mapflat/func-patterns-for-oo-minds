@@ -10,4 +10,5 @@
   - Test only relevant fields
 * Replacing unit tests with integration
   - Better documentation of pipeline behaviour
-  - Some unit tests turned out to not make sense
+  - Some unit tests turned out to test unreachable code
+

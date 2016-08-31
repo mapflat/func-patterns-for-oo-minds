@@ -1,9 +1,12 @@
-# Play JSON
+# Monocle
 
-* Nice DSL
-* Comprehensible documentation and source code
-* Integrates well with type system
+* Read/write lenses on case classes
+  - Less concise than e.g. Play JSON
+  - Easier to customise and build on
+* Macros for lens generation
 
 Issues:
 
-* Slices possible, but trickier than JsonPath
+* Couldn't get @Lenses case class decorator to work
+* Argonaut + Monocle has really good looking JSON lens integration
+  - Failed to get it to work

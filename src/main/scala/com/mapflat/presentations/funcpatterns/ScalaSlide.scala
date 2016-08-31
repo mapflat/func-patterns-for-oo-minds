@@ -1,11 +1,6 @@
 package com.mapflat.presentations.funcpatterns
 
 import monocle.Lens
-import java.io.Serializable
-import monocle.macros.GenLens
-import play.api.libs.json.Json
-
-import monocle.{Lens, PLens}
 import monocle.macros.GenLens
 import play.api.libs.json.Json
 

@@ -1,9 +1,4 @@
-# Play JSON
+# Are these things useful in practice?
 
-* Nice DSL
-* Comprehensible documentation and source code
-* Integrates well with type system
-
-Issues:
-
-* Slices possible, but trickier than JsonPath
+* For simple cases, perhaps not
+* If you have a lot of dynamic data processing, probably

@@ -1,16 +1,6 @@
-# scalaz.Disjuntion aka \/
+# scalaz.Validations
 
-* Asymmetric dual type - A object or B object
+* Asymmetric dual type - error or T object
 * Right-biased
-  - Defaults to right projection
-  - For comprehension out of the box
 * Designed for error-handling
-
-Issues:
-* Ascii-art warning
-  - Slippery slope to incomprehensible code
-  - "Concise" and "idiomatic" code -> steeper learning curve
-  - Risk of cultural split among engineers
-* Conventions to remember
-* Does not enforce distinct error types
-  - **Avoid \/[String, String]**
+* Similar to disjunctions

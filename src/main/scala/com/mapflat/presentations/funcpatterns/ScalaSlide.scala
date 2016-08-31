@@ -1,21 +1,21 @@
 package com.mapflat.presentations.funcpatterns
 
-import argonaut.Argonaut._
-import argonaut._
+import play.api.libs.json.{JsPath, Json}
 
-import scala.util.{Failure, Success, Try}
-import scalaz.{-\/, PLens, \/, \/-}
+import scala.util.{Success, Try}
 
 class ScalaSlide {
-  val streetLens = jObjectPL >=> jsonObjectPL("employees") >=> jArrayPL >=> jsonArrayPL(0) >=> jObjectPL >=> jsonObjectPL("address") >=> jObjectPL >=> jsonObjectPL("street") >=> jStringPL
+  val streetLens = JsPath \ "employees" \ 0 \ "address" \ "street"
 
-  val emailLens = jObjectPL >=> jsonObjectPL("employees") >=> jArrayPL >=> jsonArrayPL(0) >=> jObjectPL >=> jsonObjectPL("email") >=> jStringPL
-  val noteLens = jObjectPL >=> jsonObjectPL("employees") >=> jArrayPL >=> jsonArrayPL(0) >=> jObjectPL >=> jsonObjectPL("note") >=> jStringPL
+//  val emailLens = jObjectPL >=> jsonObjectPL("employees") >=> jArrayPL >=> jsonArrayPL(0) >=> jObjectPL >=> jsonObjectPL("email") >=> jStringPL
+//  val noteLens = jObjectPL >=> jsonObjectPL("employees") >=> jArrayPL >=> jsonArrayPL(0) >=> jObjectPL >=> jsonObjectPL("note") >=> jStringPL
 
-  def extractString(doc: String)(lens: PLens[Json, JsonString]): Try[Option[String]] = {
-    Parse.parse(doc).fold(
-      e => Failure(new IllegalArgumentException("Failed to parse json: " + e)),
-      json => Success(lens.get(json).map(_.toString))
-    )
+  def extractString(doc: String)(lens: JsPath): Try[Option[String]] = {
+    Success(Json.parse(doc).validate(lens.read[String]).asOpt)
+
+//    Parse.parse(doc).fold(
+//      e => Failure(new IllegalArgumentException("Failed to parse json: " + e)),
+//      json => Success(lens.get(json).map(_.toString))
+
   }
 }

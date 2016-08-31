@@ -1,8 +1,10 @@
 # Since 1982!
 
-*TODO: Image size and layout.*
-
-![Commodore 64](/Commodore-64-Computer.png)
-![ET](/ET_.jpg)
-![Blade Runner](/Blade_Runner_poster.jpg)
-![The Cure](/The_Cure_1982.jpg)
+<table>
+<tr>
+<th> <img src="Commodore-64-Computer.png" width=400px> </th>
+<th> <img src="ET_.jpg" width=400px> </th>
+</tr><tr>
+<th> <img src="Blade_Runner_poster.jpg" width=400px> </th>
+<th> <img src="The_Cure_1982.jpg" width=400px> </th>
+</tr></table>

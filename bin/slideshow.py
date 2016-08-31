@@ -52,7 +52,7 @@ def cmd_out(cmd):
 
 def start():
     run_cmd(
-        "grip '--title=Functional patterns for object-oriented minds' --wide slides/slide.md 2>&1 > /tmp/grip.out")
+        "grip '--title=Functional patterns for object-oriented minds' --pass 27cbd531678dca2eb8867e1a18e96a53e90fdff0 --wide slides/slide.md 2>&1 > /tmp/grip.out")
 
 
 def current_branch():

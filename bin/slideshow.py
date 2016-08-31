@@ -31,8 +31,12 @@ SLIDES = [
     "argonaut",
     "play-json",
     "monocle",
+    "monocle-useful",
+    "lenses-spotify",
+    "lenses-test-lessons",
     "type-lenses",
     "roundup",
+    "references",
 ]
 
 SLIDE_PREFIX = 'slide-'

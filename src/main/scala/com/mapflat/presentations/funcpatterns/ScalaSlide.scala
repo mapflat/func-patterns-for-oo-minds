@@ -4,7 +4,7 @@ import argonaut.Argonaut._
 import argonaut._
 
 import scala.util.{Failure, Success, Try}
-import scalaz.{-\/, PLens, \/, \/-}
+import scalaz.PLens
 
 class ScalaSlide {
   val streetLens = jObjectPL >=> jsonObjectPL("employees") >=> jArrayPL >=> jsonArrayPL(0) >=> jObjectPL >=> jsonObjectPL("address") >=> jObjectPL >=> jsonObjectPL("street") >=> jStringPL

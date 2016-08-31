@@ -1,3 +1,5 @@
-# Functional patterns for object-oriented minds
+# Argonaut
 
-Slide contents here
+* Functional lenses for JSON
+* Powerful but odd DSL
+

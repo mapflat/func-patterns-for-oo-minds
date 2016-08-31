@@ -48,7 +48,7 @@ class ScalaSlide {
 
     def anonEmployee(lenses: List[Lens[Employee, Option[String]]])(e: Employee): Employee = {
 
-      def applyLens(lens: Lens[Employee, Option[String]], employee: Employee): Employee = lens.modify(_ => Some("<anonymized<"))(employee)
+      def applyLens(lens: Lens[Employee, Option[String]], employee: Employee): Employee = lens.modify(_ => Some("<anonymized>"))(employee)
 
       lenses match {
         case Nil => e

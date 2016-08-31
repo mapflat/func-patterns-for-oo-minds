@@ -1,3 +1,6 @@
-# Functional patterns for object-oriented minds
+# Play JSON
 
-Slide contents here
+* Nice DSL
+* Comprehensible documentation and source code
+* Integrates well with type system
+

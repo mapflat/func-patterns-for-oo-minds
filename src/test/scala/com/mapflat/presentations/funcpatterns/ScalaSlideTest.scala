@@ -49,6 +49,7 @@ class ScalaSlideTest extends FlatSpec {
     val slide = new ScalaSlide
     val tryC = slide.readCompany(input(0))
     assert(tryC.map(c => slide.streetLens(0).get(c)) === Success("Stortorget 2"))
+    assert(tryC.map(c => slide.emailLens(1).get(c)) === Success("pelle@storb.com"))
 
 
 //    assert(slide.extract[String](input(0))(slide.emailLens) === Success(Some("pelle@storb.com")))

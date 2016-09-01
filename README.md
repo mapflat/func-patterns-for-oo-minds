@@ -31,3 +31,14 @@ Each slide is represented by a git branch, with appropriate contents in slide.md
 bin/slideshow.py, is pushed to master, and all branches are to be rebased on the master@HEAD. External dependencies
 should be added to pom.xml in master, in order to avoid having IntelliJ reimporting the Maven project on slide changes.
 
+
+## TODO
+
+Copy branches to dirs.
+
+Shorten code.
+
+List other libraries: Scalactic, Cats.
+
+Intro with patterns.
+

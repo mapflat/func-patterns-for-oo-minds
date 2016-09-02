@@ -1,22 +1,40 @@
 package com.mapflat.presentations.funcpatterns
 
-import com.mapflat.presentations.funcpatterns.ScalaDeps._
+import ScalaDeps._
+import com.typesafe.scalalogging.StrictLogging
 
-import scala.util.Try
-import scalaz._
+class ScalaSlide extends StrictLogging {
+  def obtainUser(): Option[User] = {
+    try {
+      Some(fetchUserFromDb())
+    } catch {
+      case e: Exception =>
+        logger.error("Failed to retrieve user: ", e)
+        None
+    }
+  }
 
-class ScalaSlide {
+  def doMarketing() = {
+    val userOpt = obtainUser()
 
-  // Five variants of dual types for type checked error handling.
+    // Imperative variant
+    if (userOpt.isDefined)
+      sendSpam(userOpt.get)
+  }
 
-  val maybeOpt: Option[Int] = riskyOpt()
+  def sendSpam(user: User): Unit = {
+    val emailValidated: Option[EmailAddress] = user.email.validated()
+    // Functional
+    emailValidated.foreach(sendNewsLetter(_))
 
-  val maybeEither: Either[Throwable, Int] = riskyEither()
+    val snailValidated: Option[MailAddress] = user.snailMail.validated()
+    // For comprehension
+    val snailAddresses = for {
+      snailAddress <- snailValidated
+      if snailAddress.country == "Norway"
+    } yield snailAddress
 
-  val maybeDisjunction: \/[Throwable, Int] = riskyDisjunction()
-
-  val maybeValidation: Validation[Throwable, Int] = riskyValidation()
-
-  val maybeTry: Try[Int] = riskyTry()
-
+    snailAddresses.foreach(sendSnailNews)
+  }
 }
+

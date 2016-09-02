@@ -1,12 +1,8 @@
-# Things go wrong
+# Dual types - Option
 
-* System errors. 
-  - Not much to do locally
-  - Handle at high level
-  - Java: Unchecked exceptions
-  - Scala: Unchecked exceptions
-* Domain errors. 
-  - Need local attention
-  - Enforcing caller error handling is justifiable
-  - Java: Checked exceptions. Not entirely popular.
-  - Scala: Dual types. Many variants. 
+* Some[T] or None
+* Implements collection interfaces: Map, flatMap, foreach, etc.
+* More concise than if/else or try/catch.
+
+Nevertheless not suitable for error handling.
+

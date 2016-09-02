@@ -1,10 +1,12 @@
-# Time passes
+# Functional gems
 
-![Roy Batty](/roy_batty.jpg)
+The functional paradigm has merits and patterns worth importing.
 
-Some things do not change. Robert Smith keeps his hair cut.
+We will share some we have picked up during dives in reactive programming and data processing.
 
-![Robert Smith 2011](/Robert-Smith-2011.jpg)
+Techniques beyond the basic lambda, map, reduce constructs, but straightforward and applicable in object-oriented
+contexts.
 
-Object-orientation is still the dominant paradigm.
-
+* (Reactive patterns)
+* Error handling
+* Lenses

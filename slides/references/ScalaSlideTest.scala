@@ -1,9 +1,9 @@
 package com.mapflat.presentations.funcpatterns
 
+import org.junit.runner.RunWith
 import org.scalatest.FlatSpec
+import org.scalatest.junit.JUnitRunner
 
-import ScalaDeps._
-
+@RunWith(classOf[JUnitRunner])
 class ScalaSlideTest extends FlatSpec {
-  // And tests will be shown here.
 }

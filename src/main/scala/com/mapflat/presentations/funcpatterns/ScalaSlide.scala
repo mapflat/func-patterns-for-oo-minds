@@ -1,30 +1,23 @@
 package com.mapflat.presentations.funcpatterns
 
-import com.mapflat.presentations.funcpatterns.ScalaDeps.legacyService
 import com.typesafe.scalalogging.StrictLogging
 import org.joda.time.DateTime
 
-import scala.util.{Failure, Success, Try}
+import scalaz.Validation
 
 class Event
-
 class Friend
-
 class Profile
-
 class Log {
-  def determineLastActive(): Try[DateTime] =
-    Try {
-      legacyService.lastActive()  // Throws exceptions on error
-    }
+  def determineLastActive(): Validation[Throwable, DateTime] = ???
 }
 
 trait ServiceProxy {
-  def retrieveSocialNetwork(): Try[Set[Friend]]
+  def retrieveSocialNetwork(): Validation[Throwable, Set[Friend]]
 
-  def retrieveActivityLog(): Try[Log]
+  def retrieveActivityLog(): Validation[Throwable, Log]
 
-  def retrieveUserProfile(): Try[Profile]
+  def retrieveUserProfile(): Validation[Throwable, Profile]
 }
 
 class ScalaSlide {
@@ -33,21 +26,22 @@ class ScalaSlide {
     def sendPush(event: Event) = ???
 
     def socialEvents(profile: Profile, lastActive: DateTime, friends: Set[Friend]):
-      Try[Set[Event]] = ???
+      Validation[Throwable, Set[Event]] = ???
 
     def sendPushNotifications(): Unit = {
-      val eventsOrError: Try[Set[Event]] = for {
+      val eventsOrError: Validation[Throwable, Set[Event]] = for {
         userProfile: Profile <- services.retrieveUserProfile()
         activityLog: Log <- services.retrieveActivityLog()
         lastActive: DateTime <- activityLog.determineLastActive()
         friends: Set[Friend] <- services.retrieveSocialNetwork()
         events: Set[Event] <- socialEvents(userProfile, lastActive, friends)
-        numEvents = events.size // This works.
+        numEvents = events.size  // This works.
       } yield events
-      eventsOrError match {
-        case Failure(error: Throwable) => logger.error("Failed to push: ", error)
-        case Success(events: Set[Event]) => events.foreach(sendPush)
-      }
+      eventsOrError.fold(
+        (error: Throwable) => logger.error("Failed to push: ", error),
+        (events: Set[Event]) => events.foreach(sendPush)
+      )
     }
   }
+
 }

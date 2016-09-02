@@ -1,9 +1,6 @@
-# scala.util.Try
+# scalaz.Validations
 
-* Asymmetric dual type - Throwable or object
+* Asymmetric dual type - error or T object
 * Right-biased
-  - Defaults to Success side
-  - For comprehension out of the box
 * Designed for error-handling
-* Enforces Throwable for errors
-* Exception integration
+* Similar to disjunctions

@@ -1,10 +1,10 @@
-# Since 1982!
+# Time passes
 
-<table>
-<tr>
-<th> <img src="Commodore-64-Computer.png" width=400px> </th>
-<th> <img src="ET_.jpg" width=400px> </th>
-</tr><tr>
-<th> <img src="Blade_Runner_poster.jpg" width=400px> </th>
-<th> <img src="The_Cure_1982.jpg" width=400px> </th>
-</tr></table>
+![Roy Batty](/roy_batty.jpg)
+
+Some things do not change. Robert Smith keeps his hair cut.
+
+![Robert Smith 2011](/Robert-Smith-2011.jpg)
+
+Object-orientation is still the dominant paradigm.
+

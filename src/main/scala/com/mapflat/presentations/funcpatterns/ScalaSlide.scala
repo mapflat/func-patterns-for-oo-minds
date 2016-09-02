@@ -3,19 +3,21 @@ package com.mapflat.presentations.funcpatterns
 import com.typesafe.scalalogging.StrictLogging
 import org.joda.time.DateTime
 
+import scalaz.{Disjunction, \/}
+
 class Event
 class Friend
 class Profile
 class Log {
-  def determineLastActive(): Either[Throwable, DateTime] = ???
+  def determineLastActive(): \/[Throwable, DateTime] = ???
 }
 
 trait ServiceProxy {
-  def retrieveSocialNetwork(): Either[Throwable, Set[Friend]] = ???
+  def retrieveSocialNetwork(): Disjunction[Throwable, Set[Friend]]
 
-  def retrieveActivityLog(): Either[Throwable, Log] = ???
+  def retrieveActivityLog(): \/[Throwable, Log]
 
-  def retrieveUserProfile(): Either[Throwable, Profile] = ???
+  def retrieveUserProfile(): Throwable \/ Profile
 }
 
 class ScalaSlide {
@@ -24,16 +26,16 @@ class ScalaSlide {
     def sendPush(event: Event) = ???
 
     def socialEvents(profile: Profile, lastActive: DateTime, friends: Set[Friend]):
-      Either[Throwable, Set[Event]] = ???
+      \/[Throwable, Set[Event]] = ???
 
     def sendPushNotifications(): Unit = {
-      val eventsOrError: Either[Throwable, Set[Event]] = for {
-        userProfile: Profile <- services.retrieveUserProfile().right
-        activityLog: Log <- services.retrieveActivityLog().right
-        lastActive: DateTime <- activityLog.determineLastActive().right
-        friends: Set[Friend] <- services.retrieveSocialNetwork().right
-        events: Set[Event] <- socialEvents(userProfile, lastActive, friends).right
-        // numEvents = events.size  (compile error)
+      val eventsOrError: Disjunction[Throwable, Set[Event]] = for {
+        userProfile: Profile <- services.retrieveUserProfile()
+        activityLog: Log <- services.retrieveActivityLog()
+        lastActive: DateTime <- activityLog.determineLastActive()
+        friends: Set[Friend] <- services.retrieveSocialNetwork()
+        events: Set[Event] <- socialEvents(userProfile, lastActive, friends)
+        numEvents = events.size  // This works.
       } yield events
       eventsOrError.fold(
         (error: Throwable) => logger.error("Failed to push: ", error),

@@ -1,9 +1,14 @@
-# Lens production experience
+# Lens production lessons learnt
 
-* Spotify data pipeline for royalty calculations, label reporting, user behavioural analysis.
-  - Each track played, decorated with demography, product data, licensing.
-  - User activity, e.g. device types, free/premium, shuffling.
-* Complexity due to complex business rules, i.e. label/partner contracts.
-* Apache Crunch + Apache Scalding, both on top of Hadoop MapReduce.
-  - Integration tests with 1-2 jobs in isolation. Avro in & out.
-  - Unit tests.
+* Integration test oracles became readable
+  - Several bugs discovered
+* Robustness to field changes
+  - Many tests care about few fields
+  - Schema changes
+  - Semantic changes
+* Easier to write integration test oracles
+  - Test only relevant fields
+* Replacing unit tests with integration
+  - Better documentation of pipeline behaviour
+  - Some unit tests turned out to test unreachable code
+

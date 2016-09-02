@@ -1,5 +1,9 @@
-# Argonaut
+# Play JSON
 
-* Functional lenses for JSON
-* Powerful but odd DSL
+* Nice DSL
+* Comprehensible documentation and source code
+* Integrates well with type system
 
+Issues:
+
+* Slices possible, but trickier than JsonPath

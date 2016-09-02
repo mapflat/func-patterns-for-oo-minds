@@ -1,13 +1,13 @@
 #! /usr/bin/env python3
 
 import os
+import shutil
 import sys
 from argparse import ArgumentParser
 
 from pathlib import Path
 
 import subprocess
-
 
 SLIDES = [
     "title",
@@ -46,45 +46,73 @@ def run_cmd(cmd):
     print("> {}".format(cmd))
     os.system(cmd)
 
+
 def cmd_out(cmd):
     return subprocess.check_output(cmd).decode()
-
-
-def start():
-    run_cmd(
-        "grip '--title=Functional patterns for object-oriented minds' --pass 27cbd531678dca2eb8867e1a18e96a53e90fdff0 slides/slide.md 2>&1 > /tmp/grip.out")
-
-
-def current_branch():
-    lines = cmd_out(["git", "status", "--short", "--branch", "--porcelain"]).splitlines()
-    return lines[0].split()[1].split(sep="...")[0]
-
-
-def current_slide():
-    return current_branch()[len(SLIDE_PREFIX):]
 
 
 def slide_index():
     return SLIDES.index(current_slide())
 
 
-def clean_workspace():
-    run_cmd("git checkout .")
-    run_cmd("git clean --force --quiet -x -e .idea -e '*.iml'")
+current_path = Path("slides/current")
 
 
-def switch_to_slide(name):
-    clean_workspace()
-    run_cmd("git checkout {}{}".format(SLIDE_PREFIX, name))
+def current_slide():
+    if current_path.exists():
+        return current_path.read_text().strip()
+    return None
+
+
+def set_current(slide):
+    current_path.write_text(slide + "\n")
+
+
+def source_paths():
+    return [Path(
+        "src/{}/{}/com/mapflat/presentations/funcpatterns/{}.{}".format(scope, lang, name, lang))
+            for scope, lang, name in (("main", "java", "JavaSlide"), ("main", "java", "JavaDeps"),
+                                      ("test", "java", "JavaSlideTest"),
+                                      ("main", "scala", "ScalaSlide"),
+                                      ("main", "scala", "ScalaDeps"),
+                                      ("test", "scala", "ScalaSlideTest"))]
+
+
+write_mode = True
+
+
+def save_slide():
+    current = current_slide()
+    if write_mode:
+        for path in source_paths():
+            dst_dir = Path("slides", current)
+            dst_dir.mkdir(exist_ok=True)
+            print("Saving {} to {}".format(path, dst_dir))
+            shutil.copy2(str(path), str(dst_dir))
+        print("Saved slide {}".format(current))
+    else:
+        print("Read-only mode, not saving")
+
+
+def switch_to_slide(slide):
+    for path in source_paths():
+        src_path = Path("slides", slide, path.name)
+        if src_path.exists():
+            print("Copying {} to {}".format(src_path, path))
+            shutil.copy2(str(src_path), str(path))
+    set_current(slide)
+    print("Switched to slide {}".format(slide))
 
 
 def move(count):
-    if current_branch() == "master":
+    current = current_slide()
+    if current is None:
         if count > 0:
             switch_to_slide(SLIDES[count - 1])
         else:
             switch_to_slide(SLIDES[count])
     else:
+        save_slide()
         switch_to_slide(SLIDES[(slide_index() + count) % len(SLIDES)])
 
 
@@ -101,16 +129,6 @@ def slide_branches():
             if b.startswith(SLIDE_PREFIX)]
 
 
-def rebase():
-    clean_workspace()
-    current = current_branch()
-    for slide in slide_branches():
-        run_cmd("git checkout {}".format(slide))
-        run_cmd("git rebase master".format(slide))
-    run_cmd("git checkout {}".format(current))
-
-
-
 def main(argv):
     os.chdir(str(Path(argv[0]).parent.parent))
     parser = ArgumentParser(description="Slideshow script")
@@ -120,8 +138,7 @@ def main(argv):
         'move': move,
         'next': next_slide,
         'prev': prev_slide,
-        'rebase': rebase,
-        'start': start,
+        'save': save_slide,
     }
     return commands[args.operations[0]](*args.operations[1:])
 

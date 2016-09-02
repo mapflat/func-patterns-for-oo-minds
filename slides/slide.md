@@ -1,14 +1,20 @@
-# Lens production lessons learnt
+# How do we feel?
 
-* Integration test oracles became readable
-  - Several bugs discovered
-* Robustness to field changes
-  - Many tests care about few fields
-  - Schema changes
-  - Semantic changes
-* Easier to write integration test oracles
-  - Test only relevant fields
-* Replacing unit tests with integration
-  - Better documentation of pipeline behaviour
-  - Some unit tests turned out to test unreachable code
+* Steep hills to climb
+* Feeling of mastery on top of hills
+  - Want another one! And another. And one too many.
+  - Team mates are still down there?
+* Some hill tops not worth effort
+  - The ones that are are great
+* Thin line between brilliance and mysticism
 
+<table>
+<tr>
+<td>
+<img src="Tolman_Einstein.jpg" width=200px>
+</td>
+<td>
+<img src="Capuchones.jpg" width=200px>
+</td>
+</tr>
+<table>

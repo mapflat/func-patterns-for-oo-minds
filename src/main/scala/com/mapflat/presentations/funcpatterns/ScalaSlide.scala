@@ -1,42 +1,45 @@
 package com.mapflat.presentations.funcpatterns
 
+import com.typesafe.scalalogging.StrictLogging
 import org.joda.time.DateTime
 
 class Event
 class Friend
 class Profile
 class Log {
-  def determineLastActive(): Option[DateTime] = ???
+  def determineLastActive(): Either[Throwable, DateTime] = ???
 }
 
 trait ServiceProxy {
-  def retrieveSocialNetwork(): Option[Set[Friend]] = ???
+  def retrieveSocialNetwork(): Either[Throwable, Set[Friend]] = ???
 
-  def retrieveActivityLog(): Option[Log] = ???
+  def retrieveActivityLog(): Either[Throwable, Log] = ???
 
-  def retrieveUserProfile(): Option[Profile] = ???
+  def retrieveUserProfile(): Either[Throwable, Profile] = ???
 }
 
 class ScalaSlide {
-  // Error handling with Option. Swallows errors - bad idea.
-
-  class User2(val services: ServiceProxy) {
+  class User2(val services: ServiceProxy) extends StrictLogging {
 
     def sendPush(event: Event) = ???
 
-    def sendPushNotifications(): Unit = {
-      val events: Iterable[Event] = for {
-        userProfile: Profile <- services.retrieveUserProfile()
-        activityLog: Log <- services.retrieveActivityLog()
-        lastActive: DateTime <- activityLog.determineLastActive()
-        friends: Set[Friend] <- services.retrieveSocialNetwork()
-        events: Event <- socialEvents(userProfile, lastActive, friends)
-      } yield events
-      // If this does nothing, where did we fail?
-      events.foreach(sendPush)
-    }
+    def socialEvents(profile: Profile, lastActive: DateTime, friends: Set[Friend]):
+      Either[Throwable, Set[Event]] = ???
 
-    def socialEvents(profile: Profile, lastActive: DateTime, friends: Set[Friend]): Set[Event] = ???
+    def sendPushNotifications(): Unit = {
+      val eventsOrError: Either[Throwable, Set[Event]] = for {
+        userProfile: Profile <- services.retrieveUserProfile().right
+        activityLog: Log <- services.retrieveActivityLog().right
+        lastActive: DateTime <- activityLog.determineLastActive().right
+        friends: Set[Friend] <- services.retrieveSocialNetwork().right
+        events: Set[Event] <- socialEvents(userProfile, lastActive, friends).right
+        // numEvents = events.size  (compile error)
+      } yield events
+      eventsOrError.fold(
+        (error: Throwable) => logger.error("Failed to push: ", error),
+        (events: Set[Event]) => events.foreach(sendPush)
+      )
+    }
   }
 
 }

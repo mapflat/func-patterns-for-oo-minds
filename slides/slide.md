@@ -1,8 +1,11 @@
-# Option
+# scala.Either
 
-* Dual type with [T] and None.
-* Behaves like collection with zero or one items.
-  - map(), flatMap(), for comprehension, ...
-* **Shortcuts** on errors - compact syntax with business logic focus.
+* Symmetric dual type - A object or B object
+* Use left / right projection
+  - Option-like view
+  - Enables for comprehension
 
-But swallows errors. What went wrong?
+Issues:
+* Not designed for error handling
+  - Conventions to remember
+  - Noise

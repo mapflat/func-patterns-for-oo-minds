@@ -1,8 +1,10 @@
-# Functional patterns for object-oriented minds
+# Speakers
 
-**Rouzbeh Delavari (Spotify), Lars Albertsson (independent)**
+## Rouzbeh Delavari
 
-Gems that we have discovered on excursions into functional programming.
+Infrastructure engineer @ Spotify
 
-Slides and code on
-<https://github.com/mapflat/func-patterns-for-oo-minds>
+## Lars Albertsson
+
+Independent Data Engineering Consultant (Mapflat)
+Currently mostly @ Spotify

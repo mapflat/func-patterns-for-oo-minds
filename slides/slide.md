@@ -1,20 +1,12 @@
-# How do we feel?
+# References
 
-* Steep hills to climb
-* Feeling of mastery on top of hills
-  - Want another one! And another. And one too many.
-  - Team mates are still down there?
-* Some hill tops not worth effort
-  - The ones that are are great
-* Thin line between brilliance and mysticism
+Libraries
+* scala.util
+* Scalaz
+* JsonPath
+* Play JSON
+* Monocle
 
-<table>
-<tr>
-<td>
-<img src="Tolman_Einstein.jpg" width=200px>
-</td>
-<td>
-<img src="Capuchones.jpg" width=200px>
-</td>
-</tr>
-<table>
+Links
+* [[A Skeptic's Look at Scalaz' "Gateway Drugs": a Practical
+Exploration]](https://vimeo.com/channels/flatmap2015/128466885)

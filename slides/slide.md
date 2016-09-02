@@ -1,14 +1,10 @@
-# scalaz.ValidationNel
+# JSON path
 
-* Asymmetric dual type - error or T
-* Eagerly evaluates all operations
-  - Combined with |@| operator (aka oink, tie fighter, bad piggy)
-  - Saves all errors in non-empty list (Nel)
-* Useful when reporting all errors is desired, e.g. user filling in form.
+* String-based lens Java library for selecting JSON substructures
+* Similar to `jq` command line tool
 
 Issues:
-* Even more Ascii art
-  - Further down the incomprehensible slope
-  - Scalaz examples: `<<?:   +|+   \?/   <+>   <++>   <%=   :++>>   ?|?`
-* Steeper learning curve
-  - I lost patience on simple case
+
+* Limited by Java type system & expressiveness
+* Queries are strings
+  - Complemented with some filter capabilities (not shown in code)

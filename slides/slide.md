@@ -1,10 +1,5 @@
-# JSON path
+# Argonaut
 
-* String-based lens Java library for selecting JSON substructures
-* Similar to `jq` command line tool
+* Functional lenses for JSON
+* Powerful but odd DSL
 
-Issues:
-
-* Limited by Java type system & expressiveness
-* Queries are strings
-  - Complemented with some filter capabilities (not shown in code)

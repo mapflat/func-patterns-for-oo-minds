@@ -1,22 +1,22 @@
 package com.mapflat.presentations.funcpatterns
 
-import ScalaDeps._
+import com.mapflat.presentations.funcpatterns.ScalaDeps._
+
+import scala.util.Try
+import scalaz._
 
 class ScalaSlide {
 
-  def speakers() = {
-//    Rouzbeh Delawari {}
+  // Five variants of dual types for type checked error handling.
 
-    Lars Albertsson {
-        Swedish Institute Of Computer Science((Testing + Debugging) of (Distributed Systems))
-        Sun Microsystems (Server Verification)
-        Google(Hangouts)
-        Recorded Future (Natural Language Processing)
-        Cinnober(Stock Exchange Systems)
-        Spotify(Data Engineering, Data Modelling)
-        Schibsted.Products(&) Technology (Data Architect)
-        Independent Consultant(Data Engineering, Architecture & Strategy)
-    }
-  }
+  val maybeOpt: Option[Int] = riskyOpt()
+
+  val maybeEither: Either[Throwable, Int] = riskyEither()
+
+  val maybeDisjunction: \/[Throwable, Int] = riskyDisjunction()
+
+  val maybeValidation: Validation[Throwable, Int] = riskyValidation()
+
+  val maybeTry: Try[Int] = riskyTry()
+
 }
-

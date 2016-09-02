@@ -1,12 +1,12 @@
-# Functional gems
+# Things go wrong
 
-The functional paradigm has merits and patterns worth importing.
-
-We will share some we have picked up during dives in reactive programming and data processing.
-
-Techniques beyond the basic lambda, map, reduce constructs, but straightforward and applicable in object-oriented
-contexts.
-
-* (Reactive patterns)
-* Error handling
-* Lenses
+* System errors. 
+  - Not much to do locally
+  - Handle at high level
+  - Java: Unchecked exceptions
+  - Scala: Unchecked exceptions
+* Domain errors. 
+  - Need local attention
+  - Enforcing caller error handling is justifiable
+  - Java: Checked exceptions. Not entirely popular.
+  - Scala: Dual types. Many variants. 

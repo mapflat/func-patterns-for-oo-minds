@@ -1,10 +1,3 @@
-# Speakers
+# Functional programming is on the rise!
 
-## Rouzbeh Delavari
-
-Infrastructure engineer @ Spotify
-
-## Lars Albertsson
-
-Independent Data Engineering Consultant (Mapflat)
-Currently mostly @ Spotify
+<img src="func_rising.png">

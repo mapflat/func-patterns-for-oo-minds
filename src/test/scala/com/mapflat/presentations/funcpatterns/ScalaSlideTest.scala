@@ -1,9 +1,11 @@
 package com.mapflat.presentations.funcpatterns
 
 import org.scalatest.FlatSpec
-
 import scala.util.Success
+import org.junit.runner.RunWith
+import org.scalatest.junit.JUnitRunner
 
+@RunWith(classOf[JUnitRunner])
 class ScalaSlideTest extends FlatSpec {
   val input =
     Vector("""
@@ -45,9 +47,8 @@ class ScalaSlideTest extends FlatSpec {
 
   it should "work" in {
     val slide = new ScalaSlide
-    assert(slide.extract[String](input(0))(slide.streetLens) === Success(Some("Stortorget 2")))
-    assert(slide.extract[String](input(0))(slide.emailLens) === Success(Some("pelle@storb.com")))
-    assert(slide.extract[Int](input(0))(slide.salaryLens) === Success(Some(30000)))
-    assert(slide.extract[String](input(1))(slide.noteLens) === Success(None))
+    val tryC = slide.readCompany(input(0))
+    assert(tryC.map(c => slide.streetLens(0).get(c)) === Success("Stortorget 2"))
+    assert(tryC.map(c => slide.emailLens(1).get(c)) === Success("pelle@storb.com"))
   }
 }

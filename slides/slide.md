@@ -1,8 +1,8 @@
-# Dual types - Option
+# Option
 
-* Some[T] or None
-* Implements collection interfaces: Map, flatMap, foreach, etc.
-* More concise than if/else or try/catch.
+* Dual type with [T] and None.
+* Behaves like collection with zero or one items.
+  - map(), flatMap(), for comprehension, ...
+* **Shortcuts** on errors - compact syntax with business logic focus.
 
-Nevertheless not suitable for error handling.
-
+But swallows errors. What went wrong?

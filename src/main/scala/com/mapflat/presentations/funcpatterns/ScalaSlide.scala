@@ -1,40 +1,42 @@
 package com.mapflat.presentations.funcpatterns
 
-import ScalaDeps._
-import com.typesafe.scalalogging.StrictLogging
+import org.joda.time.DateTime
 
-class ScalaSlide extends StrictLogging {
-  def obtainUser(): Option[User] = {
-    try {
-      Some(fetchUserFromDb())
-    } catch {
-      case e: Exception =>
-        logger.error("Failed to retrieve user: ", e)
-        None
-    }
-  }
-
-  def doMarketing() = {
-    val userOpt = obtainUser()
-
-    // Imperative variant
-    if (userOpt.isDefined)
-      sendSpam(userOpt.get)
-  }
-
-  def sendSpam(user: User): Unit = {
-    val emailValidated: Option[EmailAddress] = user.email.validated()
-    // Functional
-    emailValidated.foreach(sendNewsLetter(_))
-
-    val snailValidated: Option[MailAddress] = user.snailMail.validated()
-    // For comprehension
-    val snailAddresses = for {
-      snailAddress <- snailValidated
-      if snailAddress.country == "Norway"
-    } yield snailAddress
-
-    snailAddresses.foreach(sendSnailNews)
-  }
+class Event
+class Friend
+class Profile
+class Log {
+  def determineLastActive(): Option[DateTime] = ???
 }
 
+trait ServiceProxy {
+  def retrieveSocialNetwork(): Option[Set[Friend]] = ???
+
+  def retrieveActivityLog(): Option[Log] = ???
+
+  def retrieveUserProfile(): Option[Profile] = ???
+}
+
+class ScalaSlide {
+  // Error handling with Option. Swallows errors - bad idea.
+
+  class User2(val services: ServiceProxy) {
+
+    def sendPush(event: Event) = ???
+
+    def sendPushNotifications(): Unit = {
+      val events: Iterable[Event] = for {
+        userProfile: Profile <- services.retrieveUserProfile()
+        activityLog: Log <- services.retrieveActivityLog()
+        lastActive: DateTime <- activityLog.determineLastActive()
+        friends: Set[Friend] <- services.retrieveSocialNetwork()
+        events: Event <- socialEvents(userProfile, lastActive, friends)
+      } yield events
+      // If this does nothing, where did we fail?
+      events.foreach(sendPush)
+    }
+
+    def socialEvents(profile: Profile, lastActive: DateTime, friends: Set[Friend]): Set[Event] = ???
+  }
+
+}

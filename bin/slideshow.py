@@ -98,7 +98,7 @@ def switch_to_slide(slide):
         path.parent.mkdir(parents=True, exist_ok=True)
         src_path = Path("slides", slide, path.name)
         if src_path.exists():
-            print("Copying {} to {}".format(src_path, path))
+            # print("Copying {} to {}".format(src_path, path))
             shutil.copy2(str(src_path), str(path))
     set_current(slide)
     print("Switched to slide {}".format(slide))

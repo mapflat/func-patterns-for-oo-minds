@@ -12,12 +12,10 @@ import subprocess
 SLIDES = [
     "title",
     "bio",
-    "func-rising",
-    "func-rising-1982",
     "oo-dominating",
     "functional-gems",
-    # Rouz, add here
-
+    "patterns",
+    "exceptions",
     "error-mgmt",
     "option",
     "option-backfire",

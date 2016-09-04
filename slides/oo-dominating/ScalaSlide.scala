@@ -3,20 +3,14 @@ package com.mapflat.presentations.funcpatterns
 import ScalaDeps._
 
 class ScalaSlide {
+  """
+  Interest in functional programming has shown a dramatic upturn in recent years.
 
-  def speakers() = {
-//    Rouzbeh Delawari {}
+  - "Functional Programming and it's Applications", 1982
 
-    Lars Albertsson {
-        Swedish Institute Of Computer Science((Testing + Debugging) of (Distributed Systems))
-        Sun Microsystems (Server Verification)
-        Google(Hangouts)
-        Recorded Future (Natural Language Processing)
-        Cinnober(Stock Exchange Systems)
-        Spotify(Data Engineering, Data Modelling)
-        Schibsted.Products(&) Technology (Data Architect)
-        Independent Consultant(Data Engineering, Architecture & Strategy)
-    }
-  }
+
+
+  Functional constructs have merits, but object-orientation keeps dominance.
+  """
 }
 

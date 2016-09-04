@@ -5,8 +5,6 @@ import ScalaDeps._
 class ScalaSlide {
 
   def speakers() = {
-//    Rouzbeh Delawari {}
-
     Lars Albertsson {
         Swedish Institute Of Computer Science((Testing + Debugging) of (Distributed Systems))
         Sun Microsystems (Server Verification)

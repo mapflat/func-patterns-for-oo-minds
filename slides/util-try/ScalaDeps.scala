@@ -1,7 +1,9 @@
 package com.mapflat.presentations.funcpatterns
 
+import org.joda.time.DateTime
+
 object ScalaDeps {
-  object legacyService {
-    def lastActive() = ???
+  class ActivityService {
+    def lastActive(userId: Int): DateTime = ???
   }
 }

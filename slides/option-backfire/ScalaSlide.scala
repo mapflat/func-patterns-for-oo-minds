@@ -1,42 +1,41 @@
 package com.mapflat.presentations.funcpatterns
 
-import org.joda.time.DateTime
+import com.typesafe.scalalogging.StrictLogging
 
-class Event
-class Friend
-class Profile
-class Log {
-  def determineLastActive(): Option[DateTime] = ???
-}
+// Domain classes.
+class Event { /* Members not relevant for this example. */ }
+class Profile(val name: String) { /* Members not relevant for this example. */ }
+class Log { /* Members not relevant for this example. */ }
 
+// External dependencies, e.g. user and activity services.
 trait ServiceProxy {
-  def retrieveSocialNetwork(): Option[Set[Friend]] = ???
-
-  def retrieveActivityLog(): Option[Log] = ???
-
-  def retrieveUserProfile(): Option[Profile] = ???
+  // Retrieve user information.
+  def retrieveUserProfile(id: Int): Option[Profile] = ???
+  def retrieveActivityLog(userId: Int): Option[Log] = ???
 }
 
-class ScalaSlide {
+class ScalaSlide extends StrictLogging {
   // Error handling with Option. Swallows errors - bad idea.
 
-  class User2(val services: ServiceProxy) {
+  class UserPusher(val id: Int, val services: ServiceProxy) {
 
+    // Computes events to be pushed, given a user's activities
+    def news(profile: Profile, activityLog: Log): Option[Set[Event]] = ???
+    // Send an event.
     def sendPush(event: Event) = ???
 
     def sendPushNotifications(): Unit = {
-      val events: Iterable[Event] = for {
-        userProfile: Profile <- services.retrieveUserProfile()
-        activityLog: Log <- services.retrieveActivityLog()
-        lastActive: DateTime <- activityLog.determineLastActive()
-        friends: Set[Friend] <- services.retrieveSocialNetwork()
-        events: Event <- socialEvents(userProfile, lastActive, friends)
+      // Get info on the user and what the user has been up to.
+      val eventsOpt: Option[Set[Event]] = for {
+        userProfile: Profile <- services.retrieveUserProfile(id)
+        activityLog: Log <- services.retrieveActivityLog(id)
+        // From that information, compute news to send the user.
+        events: Set[Event] <- news(userProfile, activityLog)
       } yield events
-      // If this does nothing, where did we fail?
-      events.foreach(sendPush)
+      eventsOpt match {
+        case None => logger.error("Something went wrong, but I don't know what")
+        case Some(events: Set[Event]) => events.foreach(sendPush)
+      }
     }
-
-    def socialEvents(profile: Profile, lastActive: DateTime, friends: Set[Friend]): Set[Event] = ???
   }
-
 }

@@ -3,45 +3,43 @@ package com.mapflat.presentations.funcpatterns
 import com.typesafe.scalalogging.StrictLogging
 import org.joda.time.DateTime
 
-import scalaz.{Disjunction, \/}
+import scalaz.{-\/, Disjunction, \/, \/-}
 
-class Event
-class Friend
-class Profile
-class Log {
-  def determineLastActive(): \/[Throwable, DateTime] = ???
-}
+// Domain classes.
+class Event { /* Members not relevant for this example. */ }
+class Profile(val name: String) { /* Members not relevant for this example. */ }
 
+// External dependencies, e.g. user and activity services.
 trait ServiceProxy {
-  def retrieveSocialNetwork(): Disjunction[Throwable, Set[Friend]]
-
-  def retrieveActivityLog(): \/[Throwable, Log]
-
-  def retrieveUserProfile(): Throwable \/ Profile
+  // Retrieve user information.
+  def retrieveUserProfile(id: Int): Disjunction[Throwable, Profile] = ???
+  // "Idiomatic" syntax
+  def determineLastActive(userId: Int): Throwable \/ DateTime = ???
 }
 
-class ScalaSlide {
-  class User2(val services: ServiceProxy) extends StrictLogging {
+class ScalaSlide extends StrictLogging {
 
+  class UserPusher(val id: Int, val services: ServiceProxy) {
+    // Computes events to be pushed since last
+    def news(profile: Profile, lastActive: DateTime): \/[Throwable, Set[Event]] = ???
+    // Send an event.
     def sendPush(event: Event) = ???
 
-    def socialEvents(profile: Profile, lastActive: DateTime, friends: Set[Friend]):
-      \/[Throwable, Set[Event]] = ???
-
     def sendPushNotifications(): Unit = {
-      val eventsOrError: Disjunction[Throwable, Set[Event]] = for {
-        userProfile: Profile <- services.retrieveUserProfile()
-        activityLog: Log <- services.retrieveActivityLog()
-        lastActive: DateTime <- activityLog.determineLastActive()
-        friends: Set[Friend] <- services.retrieveSocialNetwork()
-        events: Set[Event] <- socialEvents(userProfile, lastActive, friends)
-        numEvents = events.size  // This works.
+      // Get info on the user and when we last saw him/her.
+      val eventsEither: Disjunction[Throwable, Set[Event]] = for {
+        userProfile: Profile <- services.retrieveUserProfile(id)
+        lastActive: DateTime <- services.determineLastActive(id)
+        // From that information, compute news to send the user.
+        events: Set[Event] <- news(userProfile, lastActive)
       } yield events
-      eventsOrError.fold(
-        (error: Throwable) => logger.error("Failed to push: ", error),
-        (events: Set[Event]) => events.foreach(sendPush)
-      )
+      eventsEither match {
+        case -\/(error) => logger.error("Something went wrong:", error)
+        case \/-(events: Set[Event]) => events.foreach(sendPush)
+      }
     }
-  }
 
+    "Looks quite good, although Ascii art is a risk. But it doesn't compile. :-("
+  }
 }
+

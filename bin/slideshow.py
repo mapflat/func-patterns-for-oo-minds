@@ -86,7 +86,7 @@ def save_slide():
             dst_dir = Path("slides", current)
             dst_dir.mkdir(exist_ok=True)
             if path.exists():
-                print("Saving {} to {}".format(path, dst_dir))
+                # print("Saving {} to {}".format(path, dst_dir))
                 shutil.copy2(str(path), str(dst_dir))
         print("Saved slide {}".format(current))
     else:

@@ -3,43 +3,39 @@ package com.mapflat.presentations.funcpatterns
 import com.typesafe.scalalogging.StrictLogging
 import org.joda.time.DateTime
 
-class Event
-class Friend
-class Profile
-class Log {
-  def determineLastActive(): Either[Throwable, DateTime] = ???
-}
+// Domain classes.
+class Event { /* Members not relevant for this example. */ }
+class Profile(val name: String) { /* Members not relevant for this example. */ }
 
+// External dependencies, e.g. user and activity services.
 trait ServiceProxy {
-  def retrieveSocialNetwork(): Either[Throwable, Set[Friend]] = ???
-
-  def retrieveActivityLog(): Either[Throwable, Log] = ???
-
-  def retrieveUserProfile(): Either[Throwable, Profile] = ???
+  // Retrieve user information.
+  def retrieveUserProfile(id: Int): Either[Throwable, Profile] = ???
+  def determineLastActive(userId: Int): Either[Throwable, DateTime] = ???
 }
 
-class ScalaSlide {
-  class User2(val services: ServiceProxy) extends StrictLogging {
+class ScalaSlide extends StrictLogging {
 
+  class UserPusher(val id: Int, val services: ServiceProxy) {
+
+    // Computes events to be pushed since last
+    def news(profile: Profile, lastActive: DateTime): Either[Throwable, Set[Event]] = ???
+    // Send an event.
     def sendPush(event: Event) = ???
 
-    def socialEvents(profile: Profile, lastActive: DateTime, friends: Set[Friend]):
-      Either[Throwable, Set[Event]] = ???
-
     def sendPushNotifications(): Unit = {
-      val eventsOrError: Either[Throwable, Set[Event]] = for {
-        userProfile: Profile <- services.retrieveUserProfile().right
-        activityLog: Log <- services.retrieveActivityLog().right
-        lastActive: DateTime <- activityLog.determineLastActive().right
-        friends: Set[Friend] <- services.retrieveSocialNetwork().right
-        events: Set[Event] <- socialEvents(userProfile, lastActive, friends).right
-        // numEvents = events.size  (compile error)
+      // Get info on the user and when we last saw him/her.
+      val eventsEither: Either[Throwable, Set[Event]] = for {
+        userProfile: Profile <- services.retrieveUserProfile(id).right
+        lastActive: DateTime <- services.determineLastActive(id).right
+        // From that information, compute news to send the user.
+        events: Set[Event] <- news(userProfile, lastActive).right
       } yield events
-      eventsOrError.fold(
-        (error: Throwable) => logger.error("Failed to push: ", error),
-        (events: Set[Event]) => events.foreach(sendPush)
-      )
+      eventsEither match {
+        case Left(error) => logger.error("Something went wrong:", error)
+        case Right(events: Set[Event]) => events.foreach(sendPush)
+      }
     }
   }
-
 }
+

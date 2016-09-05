@@ -1,40 +1,25 @@
 package com.mapflat.presentations.funcpatterns
 
-import ScalaDeps._
 import com.typesafe.scalalogging.StrictLogging
 
+// Domain classes.
+class Profile(val name: String) { /* Members not relevant for this example. */ }
+
+// External dependencies, e.g. user service.
+trait ServiceProxy {
+  // Retrieve user information.
+  def retrieveUserProfile(id: Int): Option[Profile] = ???
+}
+
 class ScalaSlide extends StrictLogging {
-  def obtainUser(): Option[User] = {
-    try {
-      Some(fetchUserFromDb())
-    } catch {
-      case e: Exception =>
-        logger.error("Failed to retrieve user: ", e)
-        None
-    }
+
+  class User(val id: Int, val services: ServiceProxy) {
+
+    // For comprehension. Option is a 0-1 size container, so loop over it.
+    def nameOpt: Option[String] = for {
+      userProfile: Profile <- services.retrieveUserProfile(id)
+    } yield userProfile.name
   }
 
-  def doMarketing() = {
-    val userOpt = obtainUser()
-
-    // Imperative variant
-    if (userOpt.isDefined)
-      sendSpam(userOpt.get)
-  }
-
-  def sendSpam(user: User): Unit = {
-    val emailValidated: Option[EmailAddress] = user.email.validated()
-    // Functional
-    emailValidated.foreach(sendNewsLetter(_))
-
-    val snailValidated: Option[MailAddress] = user.snailMail.validated()
-    // For comprehension
-    val snailAddresses = for {
-      snailAddress <- snailValidated
-      if snailAddress.country == "Norway"
-    } yield snailAddress
-
-    snailAddresses.foreach(sendSnailNews)
-  }
 }
 

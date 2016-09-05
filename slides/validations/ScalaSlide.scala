@@ -3,45 +3,42 @@ package com.mapflat.presentations.funcpatterns
 import com.typesafe.scalalogging.StrictLogging
 import org.joda.time.DateTime
 
-import scalaz.Validation
+import scalaz.{-\/, \/, \/-, _}
 
-class Event
-class Friend
-class Profile
-class Log {
-  def determineLastActive(): Validation[Throwable, DateTime] = ???
-}
+// Domain classes.
+class Event { /* Members not relevant for this example. */ }
+class Profile(val name: String) { /* Members not relevant for this example. */ }
 
+// External dependencies, e.g. user and activity services.
 trait ServiceProxy {
-  def retrieveSocialNetwork(): Validation[Throwable, Set[Friend]]
-
-  def retrieveActivityLog(): Validation[Throwable, Log]
-
-  def retrieveUserProfile(): Validation[Throwable, Profile]
+  // Retrieve user information.
+  def retrieveUserProfile(id: Int): Validation[Throwable, Profile] = ???
+  def determineLastActive(userId: Int): Validation[Throwable, DateTime] = ???
 }
 
-class ScalaSlide {
-  class User2(val services: ServiceProxy) extends StrictLogging {
+class ScalaSlide extends StrictLogging {
 
+  class UserPusher(val id: Int, val services: ServiceProxy) {
+    // Computes events to be pushed since last
+    def news(profile: Profile, lastActive: DateTime): Validation[Throwable, Set[Event]] = ???
+    // Send an event.
     def sendPush(event: Event) = ???
 
-    def socialEvents(profile: Profile, lastActive: DateTime, friends: Set[Friend]):
-      Validation[Throwable, Set[Event]] = ???
-
     def sendPushNotifications(): Unit = {
-      val eventsOrError: Validation[Throwable, Set[Event]] = for {
-        userProfile: Profile <- services.retrieveUserProfile()
-        activityLog: Log <- services.retrieveActivityLog()
-        lastActive: DateTime <- activityLog.determineLastActive()
-        friends: Set[Friend] <- services.retrieveSocialNetwork()
-        events: Set[Event] <- socialEvents(userProfile, lastActive, friends)
-        numEvents = events.size  // This works.
+      // Get info on the user and when we last saw him/her.
+      val eventsValidated: Validation[Throwable, Set[Event]] = for {
+        userProfile: Profile <- services.retrieveUserProfile(id)
+        lastActive: DateTime <- services.determineLastActive(id)
+        // From that information, compute news to send the user.
+        events: Set[Event] <- news(userProfile, lastActive)
       } yield events
-      eventsOrError.fold(
-        (error: Throwable) => logger.error("Failed to push: ", error),
-        (events: Set[Event]) => events.foreach(sendPush)
-      )
+      eventsValidated match {
+        case Success(error) => logger.error("Something went wrong:", error)
+        case Failure(events: Set[Event]) => events.foreach(sendPush)
+      }
     }
-  }
 
+    "Essentially the same as scalaz.Disjunctions, minus Ascii art."
+  }
 }
+

@@ -18,11 +18,11 @@ class ScalaSlide {
   "Scalaz Disjunction"
   val maybeDisjunction: \/[Throwable, Int] = riskyDisjunction()
 
-  "Scalaz Validation"
-  val maybeValidation: Validation[Throwable, Int] = riskyValidation()
-
   "Scala Try"
   val maybeTry: Try[Int] = riskyTry()
+
+  "Scalaz Validation"
+  val maybeValidation: Validation[Throwable, Int] = riskyValidation()
 
   "Not covered: scalactic.Or, cats.Xor, cats.Validated"
 }

@@ -26,10 +26,9 @@ class ScalaSlide extends StrictLogging {
     def sendPush(event: Event) = ???
 
     def sendPushNotifications(): Unit = {
-      // Get info on the user and when we last saw him/her.
       val eventsValidated: ValidationNel[Throwable, ValidationNel[Throwable, Set[Event]]] =
-        (services.retrieveUserProfile(id) |@|
-          services.determineLastActive(id)
+        // Get info on the user and when we last saw him/her, but report all errors.
+        (services.retrieveUserProfile(id) |@| services.determineLastActive(id)
           // From that information, compute news to send the user.
           ) apply news
       eventsValidated match {

@@ -25,8 +25,8 @@ class ScalaSlide extends StrictLogging {
     def sendPush(event: Event) = ???
 
     def sendPushNotifications(): Unit = {
-      // Get info on the user and when we last saw him/her.
       val eventsValidated: Validation[Throwable, Set[Event]] = for {
+        // Get info on the user and when we last saw him/her.
         userProfile: Profile <- services.retrieveUserProfile(id)
         lastActive: DateTime <- services.determineLastActive(id)
         // From that information, compute news to send the user.
@@ -38,7 +38,7 @@ class ScalaSlide extends StrictLogging {
       }
     }
 
-    "Essentially the same as scalaz.Disjunctions, minus Ascii art."
+    "Essentially the same as scalaz.Disjunction."
   }
 }
 

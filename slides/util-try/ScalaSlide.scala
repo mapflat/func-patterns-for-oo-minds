@@ -23,7 +23,7 @@ trait ServiceProxy {
   // Retrieve user information.
   def retrieveUserProfile(id: Int): Try[Profile] = ???
 
-  "Try { code } captures and wraps exceptions"
+  "Try { my_code } captures and wraps exceptions"
   def determineLastActive(userId: Int): Try[DateTime] = Try {
     activityService().lastActive(userId)
   }
@@ -39,8 +39,8 @@ class ScalaSlide extends StrictLogging {
     def sendPush(event: Event) = ???
 
     def sendPushNotifications(): Unit = {
-      // Get info on the user and when we last saw him/her.
       val eventsTry: Try[Set[Event]] = for {
+        // Get info on the user and when we last saw him/her.
         userProfile: Profile <- services.retrieveUserProfile(id)
         lastActive: DateTime <- services.determineLastActive(id)
         // From that information, compute news to send the user.

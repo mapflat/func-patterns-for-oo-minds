@@ -29,7 +29,8 @@ class ScalaSlideTest extends FlatSpec {
       |    "email": "pelle@storb.com",
       |    "salary": 30000
       |  }]
-      |}""", """
+      |}""",
+      """
       |{ "name": "Småbolaget",
       |  "employees": [
       |  { "name": "Anna",

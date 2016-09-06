@@ -24,6 +24,7 @@ SLIDES = [
     "util-try",
     "validations",
     "validations-nel",
+    "error-opinions",
     "lenses",
     "json-path",
     "argonaut",

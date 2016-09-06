@@ -34,11 +34,5 @@ should be added to pom.xml in master, in order to avoid having IntelliJ reimport
 
 ## TODO
 
-Copy branches to dirs.
-
-Shorten code.
-
-List other libraries: Scalactic, Cats.
-
 Intro with patterns.
 

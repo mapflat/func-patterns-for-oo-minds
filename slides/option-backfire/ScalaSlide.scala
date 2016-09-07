@@ -25,13 +25,14 @@ class ScalaSlide extends StrictLogging {
     def sendPush(event: Event) = ???
 
     def sendPushNotifications(): Unit = {
-      // Get info on the user and what the user has been up to.
       val eventsOpt: Option[Set[Event]] = for {
+        // Get info on the user and what the user has been up to.
         userProfile: Profile <- services.retrieveUserProfile(id)
         activityLog: Log <- services.retrieveActivityLog(id)
         // From that information, compute news to send the user.
         events: Set[Event] <- news(userProfile, activityLog)
       } yield events
+      
       eventsOpt match {
         case None => logger.error("Something went wrong, but I don't know what")
         case Some(events: Set[Event]) => events.foreach(sendPush)

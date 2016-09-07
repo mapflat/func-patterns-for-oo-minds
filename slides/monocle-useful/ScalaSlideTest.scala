@@ -59,7 +59,7 @@ class ScalaSlideTest extends FlatSpec {
     assert(tryC.map(c => slide.streetLens(0).get(c)) === Success(Some("Stortorget 2")))
     assert(tryC.map(c => slide.anonymize(c).employees.head.email) === Success(Some("<anonymized>")))
     tryC.foreach(c =>
-      System.out.println(Json.prettyPrint(Json.toJson(slide.anonymize(c))))
+      println(Json.prettyPrint(Json.toJson(slide.anonymize(c))))
     )
   }
 }

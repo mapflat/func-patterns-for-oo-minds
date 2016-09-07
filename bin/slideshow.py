@@ -13,8 +13,8 @@ SLIDES = [
     "title",
     "bio",
     "oo-dominating",
-    "functional-gems",
     "patterns",
+    "functional-gems",
     "exceptions",
     "error-mgmt",
     "option",
@@ -106,6 +106,7 @@ def switch_to_slide(slide):
 
 
 def move(count):
+    count = int(count)
     current = current_slide()
     if current is None:
         if count > 0:

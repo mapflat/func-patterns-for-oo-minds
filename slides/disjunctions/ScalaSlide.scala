@@ -3,7 +3,8 @@ package com.mapflat.presentations.funcpatterns
 import com.typesafe.scalalogging.StrictLogging
 import org.joda.time.DateTime
 
-import scalaz.{-\/, Disjunction, \/, \/-}
+import scalaz._
+import Scalaz._
 
 // Domain classes.
 class Event { /* Members not relevant for this example. */ }
@@ -18,7 +19,6 @@ trait ServiceProxy {
 }
 
 class ScalaSlide extends StrictLogging {
-
   class UserPusher(val id: Int, val services: ServiceProxy) {
     // Third syntax variant
     def news(profile: Profile, lastActive: DateTime): \/[Throwable, Set[Event]] = ???
@@ -33,13 +33,14 @@ class ScalaSlide extends StrictLogging {
         // From that information, compute news to send the user.
         events: Set[Event] <- news(userProfile, lastActive)
       } yield events
+
       eventsDisjunct match {
         case -\/(error) => logger.error("Something went wrong:", error)
         case \/-(events: Set[Event]) => events.foreach(sendPush)
       }
     }
 
-    """Looks quite good, although Ascii art brings a cultural a risk.
+    """Looks quite good, assuming you are ok with ascii art.
 
       But it doesn't compile. :-(
     """

@@ -32,6 +32,7 @@ class ScalaSlide extends StrictLogging {
         // From that information, compute news to send the user.
         events: Set[Event] <- news(userProfile, lastActive)
       } yield events
+
       eventsValidated match {
         case Success(error) => logger.error("Something went wrong:", error)
         case Failure(events: Set[Event]) => events.foreach(sendPush)

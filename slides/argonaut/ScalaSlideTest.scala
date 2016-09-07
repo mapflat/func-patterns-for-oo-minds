@@ -46,8 +46,16 @@ class ScalaSlideTest extends FlatSpec {
 
   it should "work" in {
     val slide = new ScalaSlide
-    assert(slide.extractString(input(0))(slide.streetLens) === Success(Some("Stortorget 2")))
-    assert(slide.extractString(input(1))(slide.emailLens) === Success(Some("anna@smab.com")))
-    assert(slide.extractString(input(1))(slide.noteLens) === Success(None))
+    val street = slide.extractString(input(0), slide.streetLens)
+    println(street)
+    assert(street === Success(Some("Stortorget 2")))
+
+    val email = slide.extractString(input(1), slide.emailLens)
+    println(email)
+    assert(email === Success(Some("anna@smab.com")))
+
+    val note = slide.extractString(input(1), slide.noteLens)
+    println(note)
+    assert(note === Success(None))
   }
 }

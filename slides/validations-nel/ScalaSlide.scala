@@ -31,6 +31,7 @@ class ScalaSlide extends StrictLogging {
         (services.retrieveUserProfile(id) |@| services.determineLastActive(id)
           // From that information, compute news to send the user.
           ) apply news
+
       eventsValidated match {
         case Failure(error: NonEmptyList[Throwable]) => error.foreach(logger.error("Something went wrong:", _))
         case Success(eventsInner) => eventsInner match {

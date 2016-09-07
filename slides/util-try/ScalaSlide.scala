@@ -7,26 +7,19 @@ import org.joda.time.DateTime
 import scala.util.{Failure, Success, Try}
 
 // Domain classes.
-class Event {
-  /* Members not relevant for this example. */
-}
-
-class Profile(val name: String) {
-  /* Members not relevant for this example. */
-}
+class Event { /* Members not relevant for this example. */ }
+class Profile(val name: String) { /* Members not relevant for this example. */ }
 
 // External dependencies, e.g. user and activity services.
 trait ServiceProxy {
-  // Can throw exceptions that we want to catch.
-  def activityService(): ActivityService
-
   // Retrieve user information.
   def retrieveUserProfile(id: Int): Try[Profile] = ???
 
   "Try { my_code } captures and wraps exceptions"
-  def determineLastActive(userId: Int): Try[DateTime] = Try {
-    activityService().lastActive(userId)
-  }
+  // Can throw exceptions that we want to catch.
+  def activityService(): ActivityService
+
+  def determineLastActive(userId: Int): Try[DateTime] = Try { activityService().lastActive(userId) }
 }
 
 class ScalaSlide extends StrictLogging {
@@ -46,6 +39,7 @@ class ScalaSlide extends StrictLogging {
         // From that information, compute news to send the user.
         events: Set[Event] <- news(userProfile, lastActive)
       } yield events
+      
       eventsTry match {
         case Failure(error) => logger.error("Something went wrong:", error)
         case Success(events: Set[Event]) => events.foreach(sendPush)

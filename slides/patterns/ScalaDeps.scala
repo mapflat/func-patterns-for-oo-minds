@@ -1,8 +1,8 @@
 package com.mapflat.presentations.funcpatterns
 
 object ScalaDeps {
-  def prev = ???
-  def next = ???
-  def save = ???
+  def prev_slide = ???
+  def next_slide = ???
+  def move_to_slide = ???
 
 }

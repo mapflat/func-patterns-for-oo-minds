@@ -4,7 +4,7 @@ class ScalaSlide {
 
   val title = "Functional patterns for object-oriented minds"
 
-  val text = """
+  val summary = """
     Lars Albertsson (independent)
 
     Gems that I have discovered on brief excursions into functional programming.

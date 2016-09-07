@@ -19,7 +19,7 @@ class ScalaSlideTest extends FlatSpec {
         |    "address":
         |    { "street": "Stortorget 2",
         |      "zip": "123 56",
-        |      "city": "Solna",
+        |      "city": "Gothenburg",
         |      "country": "Sweden"
         |    },
         |    "email": "ebba@storb.com",
@@ -43,7 +43,7 @@ class ScalaSlideTest extends FlatSpec {
         |    "address":
         |    { "street": "Lilla Gränd 3",
         |      "zip": "123 67",
-        |      "city": "Sollentuna"
+        |      "city": "Lönneberga"
         |    },
         |    "email": "anna@smab.com"
         |  }]

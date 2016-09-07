@@ -34,7 +34,7 @@ SLIDES = [
     "monocle-useful",
     "lenses-spotify",
     "lenses-test-lessons",
-    # "type-lenses",
+    "type-lenses",
     "roundup",
     "references",
 ]

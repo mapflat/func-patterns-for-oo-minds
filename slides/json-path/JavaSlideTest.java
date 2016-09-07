@@ -23,7 +23,7 @@ public class JavaSlideTest {
           "          \"address\":\n" +
           "          { \"street\": \"Stortorget 2\",\n" +
           "            \"zip\": \"123 56\",\n" +
-          "            \"city\": \"Solna\",\n" +
+          "            \"city\": \"Gothenburg\",\n" +
           "            \"country\": \"Sweden\"\n" +
           "          },\n" +
           "          \"email\": \"ebba@storb.com\",\n" +
@@ -46,7 +46,7 @@ public class JavaSlideTest {
           "          \"address\":\n" +
           "          { \"street\": \"Lilla Gränd 3\",\n" +
           "            \"zip\": \"123 67\",\n" +
-          "            \"city\": \"Sollentuna\"\n" +
+          "            \"city\": \"Lönneberga\"\n" +
           "          },\n" +
           "          \"email\": \"anna@smab.com\"\n" +
           "        }]\n" +

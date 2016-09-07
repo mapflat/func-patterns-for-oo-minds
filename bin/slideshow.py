@@ -29,11 +29,12 @@ SLIDES = [
     "json-path",
     "argonaut",
     "play-json",
+    "json-to-case",
     "monocle",
     "monocle-useful",
     "lenses-spotify",
     "lenses-test-lessons",
-    "type-lenses",
+    # "type-lenses",
     "roundup",
     "references",
 ]

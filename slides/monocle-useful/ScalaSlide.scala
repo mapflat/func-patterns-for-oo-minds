@@ -1,5 +1,6 @@
 package com.mapflat.presentations.funcpatterns
 
+import ScalaDeps._
 import monocle.Lens
 import monocle.macros.GenLens
 import play.api.libs.json.Json
@@ -8,15 +9,11 @@ import scala.util.{Failure, Success, Try}
 
 case class Address(street: Option[String], zip: String, city: String, country: Option[String])
 
-case class Employee(name: Option[String], address: Address, email: Option[String], salary: Int, note: Option[String])
+case class Employee(name: Option[String], address: Address, email: Option[String], salary: Option[Int], note: Option[String])
 
 case class Company(name: String, employees: Seq[Employee])
 
 class ScalaSlide {
-  implicit val jsonAddressReads = Json.reads[Address]
-  implicit val jsonEmployeeReads = Json.reads[Employee]
-  implicit val jsonCompanyReads = Json.reads[Company]
-
   def readCompany(doc: String): Try[Company] = {
     Json.fromJson[Company](Json.parse(doc)).fold(
       e => Failure(new IllegalArgumentException(e.toString())),
@@ -33,7 +30,9 @@ class ScalaSlide {
 
   def streetLens(i: Int) = employeeLens(i) composeLens addrStreetLens
 
-  val piiLenses: List[Lens[Employee, Option[String]]] = List(
+  // Code above is same as previous slide
+
+  val privacyLenses: List[Lens[Employee, Option[String]]] = List(
     GenLens[Employee](_.email),
     GenLens[Employee](_.name),
     addrStreetLens,
@@ -41,9 +40,11 @@ class ScalaSlide {
 
   def anonymize(company: Company): Company = {
 
-    def anonEmployee(lenses: List[Lens[Employee, Option[String]]])(e: Employee): Employee = {
+    def anonEmployee(lenses: List[Lens[Employee, Option[String]]])(e: Employee):
+    Employee = {
 
-      def applyLens(lens: Lens[Employee, Option[String]], employee: Employee): Employee =
+      def applyLens(lens: Lens[Employee, Option[String]], employee: Employee):
+      Employee =
         lens.modify(os => os.map(_ => "<anonymized>"))(employee)
 
       lenses match {
@@ -51,7 +52,7 @@ class ScalaSlide {
         case lens :: tail => anonEmployee(tail)(applyLens(lens, e))
       }
     }
-    company.copy(employees = company.employees.map(anonEmployee(piiLenses)))
+    company.copy(employees = company.employees.map(anonEmployee(privacyLenses)))
   }
 
 }

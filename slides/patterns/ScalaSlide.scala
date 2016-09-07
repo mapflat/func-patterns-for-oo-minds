@@ -6,8 +6,6 @@ import org.apache.commons.lang3.text.WordUtils
 class ScalaSlide {
   "Gang of Four patterns - some are trivial with functional constructs"
 
-  val commandPattern = Map("move" -> move_to_slide, "next" -> next_slide, "prev" -> prev_slide)
-
   // Object-oriented strategy pattern
   trait Formatter{
     def filter(text: String): Boolean
@@ -18,7 +16,9 @@ class ScalaSlide {
   // Functional strategy pattern
   def funcStrategyPatternPrint(t: String, p: (String) => Boolean, format: (String) => String) = if (p(t)) println(format(t))
 
-  def adapterPatternFormatter(formatter: (Int, String) => String) = (text: String, width: Int) => formatter(width, text)
+  val commandPattern = Map("move" -> move_to_slide, "next" -> next_slide, "prev" -> prev_slide)
+
+  def adapterPattern(formatter: (Int, String) => String) = (text: String, width: Int) => formatter(width, text)
 
   def observerPattern(text: String, width: Int, lineStatsCollector: (Int) => Unit = {_}): String = {
     val wrapped = WordUtils.wrap(text, width)
@@ -26,7 +26,8 @@ class ScalaSlide {
     wrapped
   }
 
-  // Chain of responsibility.  Clearer?  Depends on taste.
+  // Chain of responsibility.
+  // Clearer?  Depends on taste.
   def authenticate(user: String, authenticators: Seq[(String) => Boolean]) =
     authenticators.map(auth => auth(user)).fold(false)((a, b) => a || b)
 

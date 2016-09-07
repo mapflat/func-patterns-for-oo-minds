@@ -8,12 +8,12 @@ class ScalaSlide {
     * Argonaut
     * Play JSON
     * Monocle
+    * Shapeless
     """
 
   val relatedLibraries = """
     * Scalactic
     * Cats
-    * Shapeless
     """
 
   val resources = """

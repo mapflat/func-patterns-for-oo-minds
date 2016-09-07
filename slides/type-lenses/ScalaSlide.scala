@@ -16,15 +16,17 @@ class ScalaSlide {
   def readCompany(doc: String): Try[Company] = {
     Json.fromJson[Company](Json.parse(doc)).fold(
       e => Failure(new IllegalArgumentException(e.toString())),
-      c => Success(c)
-    )
+      c => Success(c))
   }
 
   // Compact lens syntax
-  val employeesLens = lens[Company].employees
+  val employeeLens = lens[Company].employees
 
-  val emailPattern = "\\w+@(\\w+\\.)+\\w+".r  // Very simplifed...
-  object anonymizeEmail extends ->((s: String) => emailPattern.replaceAllIn(s, "anonynous@noname.com"))
+  "Type lense - apply operation to all nodes matching type"
+  val emailPattern = "\\w+@(\\w+\\.)+\\w+".r  // Very simplifed.
 
-  def emailWipe(c: Company): Company = everywhere(anonymizeEmail)(c)
+  object anonymizeEmail extends ->((s: Option[String]) =>
+    s.map(emailPattern.replaceAllIn(_, "anonymous@noname.com")))
+
+  def emailWipe(c: Company) = everywhere(anonymizeEmail)(c)
 }

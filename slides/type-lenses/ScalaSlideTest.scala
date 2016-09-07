@@ -55,10 +55,7 @@ class ScalaSlideTest extends FlatSpec {
     val tryC = slide.readCompany(input(1))
     val anonymized = tryC.map(c => slide.emailWipe(c))
     println(anonymized)
-    assert(anonymized.map(c => c.employees(0).email) === Success(Some("anna@smab.com")))
-//    assert(tryC.map(c => slide.anonymize(c).employees.head.email) === Success(Some("<anonymized>")))
-//    tryC.foreach(c =>
-//      println(Json.prettyPrint(Json.toJson(slide.anonymize(c))))
-//    )
+    assert(anonymized.map(c => c.employees(0).email) ===
+      Success(Some("anonymous@noname.com")))
   }
 }

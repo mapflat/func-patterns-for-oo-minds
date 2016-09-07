@@ -14,6 +14,7 @@ class ScalaSlide {
       - Trying to convince you to go all functional
       - Held by a functional programming expert / zealot
       - Held by a writer of / expert on the libraries presented
+        - Sometimes I failed to apply libraries
 
     * Code examples in Scala + Java
       - Scala reading skills are useful

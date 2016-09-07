@@ -6,9 +6,10 @@ class ScalaSlide {
 
       - "Functional Programming and it's Applications", 1982
 
-    * Functional constructs have merits, but object-orientation keeps dominance.
 
-    * But, there are gems out there.
+    * 1983 saw C++, and object-orientation is thereafter dominant.
+
+    * But, there are interesting functional things to see out there.
   """
 }
 

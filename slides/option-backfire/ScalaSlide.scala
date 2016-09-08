@@ -19,7 +19,7 @@ class ScalaSlide extends StrictLogging {
 
   class UserPusher(val id: Int, val services: ServiceProxy) {
 
-    // Computes events to be pushed, given a user's activities
+    // Computes events to be pushed since last activity
     def news(profile: Profile, lastActive: DateTime): Option[Set[Event]] = ???
     // Send an event.
     def sendPush(event: Event) = ???

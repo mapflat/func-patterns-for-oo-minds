@@ -92,7 +92,8 @@ def save_slide():
                 shutil.copy2(str(path), str(dst_dir))
         print("Saved slide {}".format(current))
     else:
-        print("Read-only mode, not saving")
+        # print("Read-only mode, not saving")
+        pass
 
 
 def switch_to_slide(slide):

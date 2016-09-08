@@ -1,13 +1,13 @@
 package com.mapflat.presentations.funcpatterns
 
 object ScalaDeps {
-  def riskyWithOpt() = ???
+  def retrieveUserWithOpt() = ???
 
-  def riskyWithTry() = ???
+  def retrieveUserWithTry() = ???
 
-  def riskyWithDisjunction() = ???
+  def retrieveUserWithDisjunction() = ???
 
-  def riskyWithEither() = ???
+  def retrieveUserWithEither() = ???
 
-  def riskyWithValidation() = ???
+  def retrieveUserWithValidation() = ???
 }

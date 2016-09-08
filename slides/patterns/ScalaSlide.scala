@@ -1,8 +1,5 @@
 package com.mapflat.presentations.funcpatterns
 
-import ScalaDeps._
-import org.apache.commons.lang3.text.WordUtils
-
 class ScalaSlide {
   "Gang of Four patterns - some are trivial with functional constructs"
 

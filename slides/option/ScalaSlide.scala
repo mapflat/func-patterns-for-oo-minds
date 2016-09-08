@@ -1,18 +1,17 @@
 package com.mapflat.presentations.funcpatterns
 
 import com.typesafe.scalalogging.StrictLogging
+import org.joda.time.DateTime
 
 // Domain classes.
 class Event { /* Members not relevant for this example. */ }
 class Profile(val name: String) { /* Members not relevant for this example. */ }
-class Log { /* Members not relevant for this example. */ }
 
 // External dependencies, e.g. user and activity services.
 trait ServiceProxy {
   // Retrieve user information.
   def retrieveUserProfile(id: Int): Option[Profile] = ???
-  // Retrieve a user's activities
-  def retrieveActivityLog(userId: Int): Option[Log] = ???
+  def determineLastActive(userId: Int): Option[DateTime] = ???
 }
 
 class ScalaSlide extends StrictLogging {

@@ -1,18 +1,17 @@
 package com.mapflat.presentations.funcpatterns
 
 import com.typesafe.scalalogging.StrictLogging
+import org.joda.time.DateTime
 
 // Domain classes.
 class Event { /* Members not relevant for this example. */ }
 class Profile(val name: String) { /* Members not relevant for this example. */ }
-class Log { /* Members not relevant for this example. */ }
 
 // External dependencies, e.g. user and activity services.
 trait ServiceProxy {
   // Retrieve user information.
   def retrieveUserProfile(id: Int): Option[Profile] = ???
-  // Retrieve a user's activities
-  def retrieveActivityLog(userId: Int): Option[Log] = ???
+  def determineLastActive(userId: Int): Option[DateTime] = ???
 }
 
 class ScalaSlide extends StrictLogging {
@@ -21,7 +20,7 @@ class ScalaSlide extends StrictLogging {
   class UserPusher(val id: Int, val services: ServiceProxy) {
 
     // Computes events to be pushed, given a user's activities
-    def news(profile: Profile, activityLog: Log): Option[Set[Event]] = ???
+    def news(profile: Profile, lastActive: DateTime): Option[Set[Event]] = ???
     // Send an event.
     def sendPush(event: Event) = ???
 
@@ -29,9 +28,9 @@ class ScalaSlide extends StrictLogging {
       val eventsOpt: Option[Set[Event]] = for {
         // Get info on the user and what the user has been up to.
         userProfile: Profile <- services.retrieveUserProfile(id)
-        activityLog: Log <- services.retrieveActivityLog(id)
+        lastActive: DateTime <- services.determineLastActive(id)
         // From that information, compute news to send the user.
-        events: Set[Event] <- news(userProfile, activityLog)
+        events: Set[Event] <- news(userProfile, lastActive)
       } yield events
       
       eventsOpt match {

@@ -18,7 +18,8 @@ class ScalaSlide extends StrictLogging {
 
   class User(val id: Int, val services: ServiceProxy) {
 
-    // For comprehension. Option is a 0-1 size container, so loop over it.
+    "For comprehension. Option is a 0-1 size container, so loop over it."
+
     def nameOpt: Option[String] = for {
       userProfile: Profile <- services.retrieveUserProfile(id)
     } yield userProfile.name

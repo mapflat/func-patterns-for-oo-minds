@@ -11,7 +11,7 @@ class ScalaSlide {
     * There is a learn & mindset threshold for functional style libraries
       - Ascii art culture makes this worse. Examples from scalaz: <<?: <++> |+| =?>= :++>> -+- ?|?
       - Risk of developer cultural divide
-      - Scalactic & Cats might be smoother
+      - Scalactic & Cats may be smoother - check them out and tell us :-)
 
     * You have a great type system, use dedicated error classes
       - Don't reuse value classes e.g. String: "val name: String \/ String"

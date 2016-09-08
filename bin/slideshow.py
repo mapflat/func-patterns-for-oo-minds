@@ -14,6 +14,7 @@ SLIDES = [
     "bio",
     "oo-dominating",
     "patterns",
+    "func-patterns",
     "functional-gems",
     "exceptions",
     "error-mgmt",

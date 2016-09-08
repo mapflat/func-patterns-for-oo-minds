@@ -11,6 +11,7 @@ class Log { /* Members not relevant for this example. */ }
 trait ServiceProxy {
   // Retrieve user information.
   def retrieveUserProfile(id: Int): Option[Profile] = ???
+  // Retrieve a user's activities
   def retrieveActivityLog(userId: Int): Option[Log] = ???
 }
 

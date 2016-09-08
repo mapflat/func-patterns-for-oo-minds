@@ -52,7 +52,7 @@ class ScalaSlideTest extends FlatSpec {
 
   it should "work" in {
     val slide = new ScalaSlide
-    val tryC = slide.readCompany(input(1))
+    val tryC = slide.readCompany(input(0))
     val anonymized = tryC.map(c => slide.emailWipe(c))
     println(anonymized)
     assert(anonymized.map(c => c.employees(0).email) ===

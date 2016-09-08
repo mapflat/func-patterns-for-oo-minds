@@ -26,10 +26,18 @@ class ScalaSlide {
     elem => old => old.copy(employees =
       old.employees.take(i) ++ Seq(elem) ++ old.employees.drop(i + 1)))
 
+  // GenLens == semi-automatic lens creation
   def streetLens(i: Int) = employeeLens(i) composeLens
     GenLens[Employee](_.address) composeLens
     GenLens[Address](_.street)
 
   def emailLens(i: Int) = employeeLens(i) ^|-> GenLens[Employee](_.email)
 
+  // Without lenses for comparison
+  def setStreetWithoutLens(c: Company, i: Int, street: String) =
+    c.copy(employees = c.employees.take(i) ++ Seq(
+      c.employees(i).copy(address = c.employees(i).address.copy(
+        street = street
+      ))
+    ) ++ c.employees.drop(i + 1))
 }

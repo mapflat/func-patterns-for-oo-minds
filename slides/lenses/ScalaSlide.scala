@@ -10,6 +10,7 @@ class ScalaSlide {
       - Projection: Multiple data elements
 
     * Applicable for nested records data structure: JSON, XML, case classes
+      - In data processing applications, structures are denormalised and large
 
     * Examples: XPath, jq (JSON query command line tool)
 

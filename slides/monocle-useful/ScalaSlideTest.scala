@@ -56,8 +56,11 @@ class ScalaSlideTest extends FlatSpec {
   it should "work" in {
     val slide = new ScalaSlide
     val tryC = slide.readCompany(input(0))
-    assert(tryC.map(c => slide.streetLens(0).get(c)) === Success(Some("Stortorget 2")))
-    assert(tryC.map(c => slide.anonymize(c).employees.head.email) === Success(Some("<anonymized>")))
+    assert(tryC.map(c => slide.streetLens(0).get(c)) ===
+      Success(Some("Stortorget 2")))
+    assert(tryC.map(
+      c => slide.anonymize(c).employees.head.email) ===
+      Success(Some("<anonymized>")))
     tryC.foreach(c =>
       println(Json.prettyPrint(Json.toJson(slide.anonymize(c))))
     )

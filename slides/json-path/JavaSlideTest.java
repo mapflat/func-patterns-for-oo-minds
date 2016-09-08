@@ -58,7 +58,8 @@ public class JavaSlideTest {
     System.out.println(name);
     assertThat(name, equalTo("Storbolaget"));
 
-    List<Map<String, Object>> employees = slide.numEmployees(json.get(1));
+    List<Map<String, Object>> employees =
+        slide.numEmployees(json.get(1));
     System.out.println(employees);
     assertThat(employees, hasSize(1));
 

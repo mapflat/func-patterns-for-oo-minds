@@ -34,8 +34,8 @@ class ScalaSlide extends StrictLogging {
       } yield events
 
       eventsValidated match {
-        case Success(error) => logger.error("Something went wrong:", error)
-        case Failure(events: Set[Event]) => events.foreach(sendPush)
+        case Failure(error) => logger.error("Something went wrong:", error)
+        case Success(events: Set[Event]) => events.foreach(sendPush)
       }
     }
 

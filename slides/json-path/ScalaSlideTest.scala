@@ -2,8 +2,6 @@ package com.mapflat.presentations.funcpatterns
 
 import org.scalatest.FlatSpec
 
-import scala.util.Success
-
 class ScalaSlideTest extends FlatSpec {
   val input =
     Vector(

@@ -9,7 +9,7 @@ from pathlib import Path
 
 import subprocess
 
-SLIDES = [
+ALL_SLIDES = [
     "title",
     "bio",
     "oo-dominating",
@@ -40,7 +40,38 @@ SLIDES = [
     "references",
 ]
 
-SLIDE_PREFIX = 'slide-'
+SPOTIFY_SLIDES = [
+    "title",
+    # "bio",
+    # "oo-dominating",
+    "patterns",
+    "func-patterns",
+    "functional-gems",
+    "exceptions",
+    # "error-mgmt",
+    "option",
+    "option-backfire",
+    "either",
+    "disjunctions",
+    "util-try",
+    # "validations",
+    "validations-nel",
+    "error-opinions",
+    "lenses",
+    "json-path",
+    "argonaut",
+    "play-json",
+    "json-to-case",
+    "monocle",
+    "monocle-useful",
+    "lenses-spotify",
+    "lenses-test-lessons",
+    "type-lenses",
+    "roundup",
+    "references",
+]
+
+SLIDES = SPOTIFY_SLIDES
 
 
 def run_cmd(cmd):
@@ -127,11 +158,6 @@ def prev_slide():
 
 def next_slide():
     move(1)
-
-
-def slide_branches():
-    return [b for b in cmd_out(["git", "branch", "--list"]).split()
-            if b.startswith(SLIDE_PREFIX)]
 
 
 def main(argv):

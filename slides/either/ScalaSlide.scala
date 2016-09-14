@@ -25,9 +25,11 @@ class ScalaSlide extends StrictLogging {
 
     def sendPushNotifications(): Unit = {
       val eventsEither: Either[Throwable, Set[Event]] = for {
+
         // Get info on the user and when we last saw him/her.
         userProfile: Profile <- services.retrieveUserProfile(id).right
         lastActive: DateTime <- services.determineLastActive(id).right
+
         // From that information, compute news to send the user.
         events: Set[Event] <- news(userProfile, lastActive).right
       } yield events

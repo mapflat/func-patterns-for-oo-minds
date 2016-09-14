@@ -10,7 +10,6 @@ class ScalaSlide {
     Gems that I have discovered on brief excursions into functional programming.
 
     Code on <https://github.com/mapflat/func-patterns-for-oo-minds>
-
 """
 }
 

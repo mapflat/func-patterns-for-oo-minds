@@ -23,7 +23,7 @@ class ScalaSlide {
 
   // Chain of responsibility pattern.
   // Clearer?  Depends on taste.
-  def authenticate(user: String, authenticators: Seq[(String) => Boolean]) =
+  def authenticate(user: String, authenticators: Seq[(String) => Boolean]): Boolean =
     authenticators.map(auth => auth(user)).fold(false)((a, b) => a || b)
 
   

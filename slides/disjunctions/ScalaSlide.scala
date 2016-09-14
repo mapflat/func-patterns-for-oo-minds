@@ -22,14 +22,17 @@ class ScalaSlide extends StrictLogging {
   class UserPusher(val id: Int, val services: ServiceProxy) {
     // Third syntax variant
     def news(profile: Profile, lastActive: DateTime): \/[Throwable, Set[Event]] = ???
+
     // Send an event.
     def sendPush(event: Event) = ???
 
     def sendPushNotifications(): Unit = {
       val eventsDisjunct: Disjunction[Throwable, Set[Event]] = for {
+
         // Get info on the user and when we last saw him/her.
         userProfile: Profile <- services.retrieveUserProfile(id)
         lastActive: DateTime <- services.determineLastActive(id)
+
         // From that information, compute news to send the user.
         events: Set[Event] <- news(userProfile, lastActive)
       } yield events

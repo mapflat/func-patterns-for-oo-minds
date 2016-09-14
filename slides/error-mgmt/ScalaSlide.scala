@@ -1,6 +1,5 @@
 package com.mapflat.presentations.funcpatterns
 
-import com.mapflat.presentations.funcpatterns.ScalaDeps._
 import org.joda.time.DateTime
 
 import scala.util.Try
@@ -33,8 +32,8 @@ class ScalaSlide {
   "Scala Try"
   val profileTry: Try[Int] = retrieveUserProfile()
 
-  "Scalaz Validation"
-  val profileValidation: Validation[Throwable, Int] = retrieveUserProfile()
+  "Scalaz ValidationNel"
+  val profileValidation: ValidationNel[Throwable, Int] = retrieveUserProfile()
 
   "Not covered: scalactic.Or, cats.Xor, cats.Validated"
 }

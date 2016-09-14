@@ -71,7 +71,7 @@ SPOTIFY_SLIDES = [
     "references",
 ]
 
-SLIDES = SPOTIFY_SLIDES
+SLIDES = JAVAZONE_SLIDES
 
 
 def run_cmd(cmd):

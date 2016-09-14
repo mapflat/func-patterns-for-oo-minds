@@ -9,7 +9,7 @@ from pathlib import Path
 
 import subprocess
 
-ALL_SLIDES = [
+JAVAZONE_SLIDES = [
     "title",
     "bio",
     "oo-dominating",
@@ -58,13 +58,13 @@ SPOTIFY_SLIDES = [
     "validations-nel",
     "error-opinions",
     "lenses",
-    "json-path",
-    "argonaut",
+    # "json-path",
+    # "argonaut",
     "play-json",
-    "json-to-case",
+    # "json-to-case",
     "monocle",
     "monocle-useful",
-    "lenses-spotify",
+    # "lenses-spotify",
     "lenses-test-lessons",
     "type-lenses",
     "roundup",

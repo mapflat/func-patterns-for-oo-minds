@@ -1,7 +1,8 @@
 package com.mapflat.presentations.funcpatterns
 
 import org.scalatest.FlatSpec
-import scala.util.Success
+
+import scala.util.{Success, Try}
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 
@@ -56,5 +57,9 @@ class ScalaSlideTest extends FlatSpec {
     val email = tryC.map(c => slide.emailLens(1).get(c))
     println(email)
     assert(email === Success("pelle@storb.com"))
+
+    val transformed = tryC.map(c => slide.streetLens(1).set("Storgatan 1A")(c))
+    println(transformed)
+    assert(transformed.map(c => c.employees(1).address.street) === Some("Storgatan 1A"))
   }
 }

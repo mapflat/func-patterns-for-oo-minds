@@ -14,7 +14,8 @@ class ScalaSlide {
       - Scalactic & Cats may be smoother - check them out and tell us :-)
 
     * You have a great type system, use dedicated error classes
-      - Don't reuse value classes e.g. String: "val name: String \/ String"
+      - Don't reuse value classes for errors.
+        - This makes no sense to the untrained eye: "val name: String \/ String"
       - Throwable is already there for you
 
     * scala.util.* takes you far

@@ -19,10 +19,8 @@ class ScalaSlide {
       c => Success(c))
   }
 
-  // Compact lens syntax
-  val employeeLens = lens[Company].employees
+  "Type lens - apply operation to all nodes matching type"
 
-  "Type lense - apply operation to all nodes matching type"
   val emailPattern = "\\w+@(\\w+\\.)+\\w+".r  // Very simplifed.
 
   object anonymizeEmail extends ->((s: Option[String]) =>

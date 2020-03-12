@@ -23,6 +23,8 @@ class ScalaSlide {
         Schibsted.Products (&) Technology (Data Architect)
       
         Independent Consultant (Data Engineering, Architecture & Strategy)
+
+        "Scling - data-value-as-a-service"
     }
   }
 }

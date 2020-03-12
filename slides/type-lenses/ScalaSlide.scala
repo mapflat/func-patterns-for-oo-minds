@@ -12,6 +12,7 @@ case class Employee(name: Option[String], address: Address, email: Option[String
 
 case class Company(name: String, employees: Seq[Employee])
 
+//noinspection TypeAnnotation
 class ScalaSlide {
   def readCompany(doc: String): Try[Company] = {
     Json.fromJson[Company](Json.parse(doc)).fold(
@@ -26,5 +27,5 @@ class ScalaSlide {
   object anonymizeEmail extends ->((s: Option[String]) =>
     s.map(emailPattern.replaceAllIn(_, "anonymous@noname.com")))
 
-  def emailWipe(c: Company) = everywhere(anonymizeEmail)(c)
+  def emailWipe(c: Company): Option[String] = everywhere(anonymizeEmail)(c)
 }

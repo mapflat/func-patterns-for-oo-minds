@@ -27,11 +27,11 @@ class ScalaSlide extends StrictLogging {
       val eventsEither: Either[Throwable, Set[Event]] = for {
 
         // Get info on the user and when we last saw him/her.
-        userProfile: Profile <- services.retrieveUserProfile(id).right
-        lastActive: DateTime <- services.determineLastActive(id).right
+        userProfile <- services.retrieveUserProfile(id).right
+        lastActive <- services.determineLastActive(id).right
 
         // From that information, compute news to send the user.
-        events: Set[Event] <- news(userProfile, lastActive).right
+        events <- news(userProfile, lastActive).right
       } yield events
 
       eventsEither match {

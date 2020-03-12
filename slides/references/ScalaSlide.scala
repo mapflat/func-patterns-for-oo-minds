@@ -24,5 +24,6 @@ class ScalaSlide {
      - https://vimeo.com/channels/flatmap2015/128466885
    * GoF patterns: https://blog.jooq.org/2016/07/04/how-functional-programming-will-finally-do-away-with-the-gof-patterns/
    * https://2016.javazone.no/program/functional-json-in-java-8
+   * http://gosubpl.github.io/scalar-2016-slides/
 """
 }

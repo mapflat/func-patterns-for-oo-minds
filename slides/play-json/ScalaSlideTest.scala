@@ -47,19 +47,19 @@ class ScalaSlideTest extends FlatSpec {
   it should "work" in {
     val slide = new ScalaSlide
     val address = slide.extract[String](input(0))(slide.streetLens)
-    println(address)
+    println(s"Address:\n$address\n")
     assert(address === Success(Some("Stortorget 2")))
 
     val email = slide.extract[String](input(0))(slide.emailLens)
-    println(email)
+    println(s"Email:\n$email\n")
     assert(email === Success(Some("pelle@storb.com")))
 
     val salary = slide.extract[Int](input(0))(slide.salaryLens)
-    println(salary)
+    println(s"Salary:\n$salary\n")
     assert(salary === Success(Some(30000)))
 
     val note = slide.extract[String](input(1))(slide.noteLens)
-    println(note)
+    println(s"Note:\n$note\n")
     assert(note === Success(None))
   }
 }

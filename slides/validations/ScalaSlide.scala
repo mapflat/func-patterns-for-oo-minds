@@ -2,8 +2,7 @@ package com.mapflat.presentations.funcpatterns
 
 import com.typesafe.scalalogging.StrictLogging
 import org.joda.time.DateTime
-
-import scalaz.{-\/, \/, \/-, _}
+import scalaz._
 
 // Domain classes.
 class Event { /* Members not relevant for this example. */ }
@@ -27,10 +26,10 @@ class ScalaSlide extends StrictLogging {
     def sendPushNotifications(): Unit = {
       val eventsValidated: Validation[Throwable, Set[Event]] = for {
         // Get info on the user and when we last saw him/her.
-        userProfile: Profile <- services.retrieveUserProfile(id)
-        lastActive: DateTime <- services.determineLastActive(id)
+        userProfile <- services.retrieveUserProfile(id)
+        lastActive <- services.determineLastActive(id)
         // From that information, compute news to send the user.
-        events: Set[Event] <- news(userProfile, lastActive)
+        events <- news(userProfile, lastActive)
       } yield events
 
       eventsValidated match {

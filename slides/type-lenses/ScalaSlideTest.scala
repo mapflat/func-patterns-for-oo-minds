@@ -4,9 +4,9 @@ import org.junit.runner.RunWith
 import org.scalatest.FlatSpec
 import org.scalatest.junit.JUnitRunner
 import play.api.libs.json.Json
-
 import ScalaDeps._
-import scala.util.Success
+
+import scala.util.{Success, Try}
 
 @RunWith(classOf[JUnitRunner])
 class ScalaSlideTest extends FlatSpec {
@@ -52,10 +52,12 @@ class ScalaSlideTest extends FlatSpec {
 
   it should "work" in {
     val slide = new ScalaSlide
-    val tryC = slide.readCompany(input(0))
-    val anonymized = tryC.map(c => slide.emailWipe(c))
+    val tryC: Try[Company] = slide.readCompany(input(0))
+    val anonymized: Try[Option[String]] = tryC.map(c => slide.emailWipe(c))
+
     assert(anonymized.map(c => c.employees(0).email) ===
       Success(Some("anonymous@noname.com")))
+
     anonymized.foreach(c =>
       println(Json.prettyPrint(Json.toJson(c)))
     )

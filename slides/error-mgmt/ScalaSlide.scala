@@ -21,19 +21,19 @@ class ScalaSlide {
   "Five variants of dual types for type checked error handling."
 
   "Scala Option"
-  val profileOpt: Option[Int] = retrieveUserProfile()
+  val profileOpt: Option[Profile] = retrieveUserProfile()
 
   "Scala Either"
-  val profileEither: Either[Throwable, Int] = retrieveUserProfile()
+  val profileEither: Either[Throwable, Profile] = retrieveUserProfile()
 
   "Scalaz Disjunction"
-  val profileDisjunction: \/[Throwable, Int] = retrieveUserProfile()
+  val profileDisjunction: \/[Throwable, Profile] = retrieveUserProfile()
 
   "Scala Try"
-  val profileTry: Try[Int] = retrieveUserProfile()
+  val profileTry: Try[Profile] = retrieveUserProfile()
 
   "Scalaz ValidationNel"
-  val profileValidation: ValidationNel[Throwable, Int] = retrieveUserProfile()
+  val profileValidation: ValidationNel[Throwable, Profile] = retrieveUserProfile()
 
   "Not covered: scalactic.Or, cats.Xor, cats.Validated"
 }

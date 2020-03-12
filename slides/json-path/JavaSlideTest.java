@@ -55,20 +55,20 @@ public class JavaSlideTest {
   @Test
   public void exampleTest() {
     String name = slide.name(json.get(0));
-    System.out.println(name);
+    System.out.println("Name:\n" + name + "\n");
     assertThat(name, equalTo("Storbolaget"));
 
     List<Map<String, Object>> employees =
         slide.numEmployees(json.get(1));
-    System.out.println(employees);
+    System.out.println("Employees:\n" + employees + "\n");
     assertThat(employees, hasSize(1));
 
     List<String> emails = slide.emails(json.get(0));
-    System.out.println(emails);
+    System.out.println("Emails:\n" + emails + "\n");
     assertThat(emails, hasItems("ebba@storb.com", "pelle@storb.com"));
 
     List<String> wellPaid = slide.highSalaryNames(json.get(0));
-    System.out.println(wellPaid);
+    System.out.println("Well paid:\n" + wellPaid + "\n");
     assertThat(wellPaid, hasItems("Ebba"));
     assertThat(wellPaid, not(hasItems("Pelle")));
   }

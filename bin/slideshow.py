@@ -71,7 +71,38 @@ SPOTIFY_SLIDES = [
     "references",
 ]
 
-SLIDES = JAVAZONE_SLIDES
+FUNC_MEETUP_SLIDES = [
+    "title",
+    # "bio",
+    "oo-dominating",
+    # "patterns",
+    # "func-patterns",
+    "functional-gems",
+    "exceptions",
+    "error-mgmt",
+    "option",
+    "option-backfire",
+    "either",
+    "disjunctions",
+    "util-try",
+    "validations",
+    "validations-nel",
+    "error-opinions",
+    "lenses",
+    "json-path",
+    "argonaut",
+    "play-json",
+    "json-to-case",
+    "monocle",
+    "monocle-useful",
+    "lenses-spotify",
+    "lenses-test-lessons",
+    "type-lenses",
+    "roundup",
+    "references",
+]
+
+SLIDES = FUNC_MEETUP_SLIDES
 
 
 def run_cmd(cmd):

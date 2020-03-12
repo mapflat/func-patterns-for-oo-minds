@@ -13,6 +13,7 @@ case class Employee(name: Option[String], address: Address, email: Option[String
 
 case class Company(name: String, employees: Seq[Employee])
 
+//noinspection TypeAnnotation
 class ScalaSlide {
   def readCompany(doc: String): Try[Company] = {
     Json.fromJson[Company](Json.parse(doc)).fold(

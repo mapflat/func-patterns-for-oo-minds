@@ -49,7 +49,7 @@ class ScalaSlideTest extends FlatSpec {
   it should "work" in {
     val slide = new ScalaSlide
     val tryC = slide.readCompany(input(0))
-    println(tryC)
+    println(s"Company:\n$tryC\n")
     assert(tryC.map(_.name) === Success("Storbolaget"))
   }
 }
